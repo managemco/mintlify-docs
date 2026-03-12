@@ -16,7 +16,7 @@
       {
         "tab": "Marketplace",
         "icon": "store",
-        "openapi": "https://api.managem.localhost:1355/doc?",
+        "openapi": "https://api.managem.co.uk/doc?",
         "playground": "interactive",
         "groups": [
           {
@@ -71,7 +71,7 @@
       },
       {
         "tab": "Sellers",
-        "openapi": "https://api.managem.localhost:1355/doc",
+        "openapi": "https://api.managem.co.uk/doc",
         "playground": "interactive",
         "groups": [
           {
@@ -269,7 +269,7 @@
       },
       {
         "tab": "Buyers",
-        "openapi": "https://api.managem.localhost:1355/doc",
+        "openapi": "https://api.managem.co.uk/doc",
         "playground": "interactive",
         "groups": [
           {
