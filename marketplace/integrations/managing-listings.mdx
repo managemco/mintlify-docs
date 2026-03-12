@@ -52,6 +52,7 @@ Use [Search your listings](/api-reference/seller-listings/search-your-listings) 
 Store at least:
 
 - `listing.id`
+- `reference`
 - `item.urn`
 - `condition`
 - `language`
@@ -93,7 +94,9 @@ Run [Test webhook delivery](/api-reference/seller-webhooks/test-webhook-delivery
 
 ### 5. Backfill listings from your system
 
-- Each listing supports a `reference` column, which you can populate with your own internal ID.
+- Write your internal listing ID into `reference` when creating listings. This gives you a stable integration-owned key per seller listing.
+- Keep a seller-scoped mapping in your system between `reference` and `listing.id`.
+- `reference` values are trimmed and limited to 255 characters. Empty values clear an existing reference.
 - For large datasets, upload CSV jobs with [Create an import](/sellers/imports), then monitor with:
   - [List imports](/api-reference/seller-imports/list-imports)
   - [Retrieve an import](/api-reference/seller-imports/retrieve-an-import)
@@ -112,10 +115,15 @@ Your ongoing sync loop should be webhook-driven.
 When you receive events:
 
 - `LISTING_CREATED`: create or update local listing mapping.
-- `LISTING_UPDATED`: update local listing state (price, quantity, visibility, notes).
+- `LISTING_UPDATED`: update local listing state (price, quantity, visibility, notes, and reference mapping).
 - `LISTING_DELETED`: mark listing inactive in your system.
 - `ORDER_CREATED` and `ORDER_UPDATED`: update availability/reserved quantities in your local model.
 - `TEST`: use only as a connectivity check.
+
+<Info>
+  Webhook payloads do not include `reference`, so if your sync depends on it,
+  re-fetch the listing after `LISTING_CREATED` or `LISTING_UPDATED`.
+</Info>
 
 Ensure that your implementation is idempotent, so that retries do not create duplicate records or unintended side effects. Use unique constraints and update logic where appropriate to maintain data integrity.
 

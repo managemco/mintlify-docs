@@ -22,7 +22,7 @@ Example (from a real failure):
 
 ```sh
 Multiple listings found for seller with URN `urn:managem:pokemon:set/surging-sparks/card/16`
-Code: 409 • Line: 'UPDATE,"urn:managem:pokemon:set/surging-sparks/card/16",,,,,"",,PO,8,1,,,'
+Code: 409 • Line: 'UPDATE,"urn:managem:pokemon:set/surging-sparks/card/16",,,,,"",,PO,8,1,,,,,partner-ref-16'
 ```
 
 ---
@@ -96,5 +96,6 @@ You don't need to re-upload the whole file.
 - **Use URNs whenever possible** — fastest way to avoid `404` errors.
 - **Start small** — a 5-10 line "smoke test" catches formatting issues before a big run.
 - **Keep notes** in the `NOTES` column for your own audit trail (they're not visible to customers).
+- **Be deliberate with `REFERENCE`** — non-empty values set/update your integration ID, empty values clear it.
 
 If you're stuck on a specific error message and the suggestion above doesn't help, copy the full error (including the CSV line) into a support ticket and email support@managem.co.uk — we'll tell you exactly what's ambiguous and how to make it unambiguous.

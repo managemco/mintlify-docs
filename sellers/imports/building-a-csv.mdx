@@ -10,7 +10,7 @@ A well-formed CSV is the key to fast, trouble-free imports. This page shows the 
 ## The exact header (copy this)
 
 ```csv
-MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES,REFERENCE
 ```
 
 ## Important
@@ -37,6 +37,7 @@ MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIA
 | `HIDDEN`        | Optional                                                                | `true`/`false`. When `true`, the created/updated listing is hidden from buyers.                                                                        |
 | `COMMENT`       | Optional                                                                | Free-form comment visible to buyers (same as listing comment).                                                                                         |
 | `NOTES`         | Optional                                                                | Private notes, visible only to you.                                                                                                                    |
+| `REFERENCE`     | Optional                                                                | Third-party integration reference (for example your internal listing ID). Non-empty values set/update the reference, and empty values clear it.        |
 
 ### Guidance on identifiers
 
@@ -63,8 +64,8 @@ The following condition values are valid for listings. For example, if your list
 In this example, we're creating a new listing by using Managem's URN identifier, to target a specific item (single card), creating it with a "Near Mint" condition for £3.50 and a quantity of 1. It also has a seller note, indicating a SKU that the seller will recognise upon receiving an order containing it.
 
 ```csv
-MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
-CREATE,urn:managem:pokemon:set/surging-sparks/card/16,,,,,,NM,350,1,,,,SKU65125
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES,REFERENCE
+CREATE,urn:managem:pokemon:set/surging-sparks/card/16,,,,,,NM,350,1,,,,SKU65125,partner-ref-16
 ```
 
 2. `CREATE` using Game/Set/Name
@@ -74,8 +75,8 @@ In the following example, we're creating a new listing for Vulpix, in the Surgin
 We've also added a comment to the listing: "Quick delivery".
 
 ```csv
-MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
-CREATE,,Pokemon,Surging Sparks,Vulpix,,,,LP,200,5,,true,"Quick delivery",
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES,REFERENCE
+CREATE,,Pokemon,Surging Sparks,Vulpix,,,,LP,200,5,,true,"Quick delivery",,erp-vulpix-001
 ```
 
 3. `CREATE` using an external marketplace ID
@@ -83,17 +84,19 @@ CREATE,,Pokemon,Surging Sparks,Vulpix,,,,LP,200,5,,true,"Quick delivery",
 Here, we're using Cardmarket's ID for Vulpix in the Surging Sparks (Pokemon) set, to create a new listing.
 
 ```csv
-MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
-CREATE,,,,,794271,,NM,2,1,,false,,
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES,REFERENCE
+CREATE,,,,,794271,,NM,2,1,,false,,,cm-794271
 ```
 
 4. `UPDATE` an existing listing (explicit URN)
 
 In the following example, we're updating an existing listing for Vulpix, adjusting its price to £3.25 and setting its quantity to 1.
 
+Because `REFERENCE` is empty in this row, any existing integration reference is cleared.
+
 ```csv
-MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
-UPDATE,urn:managem:pokemon:set/surging-sparks/card/16,,,,,,NM,325,1,,,,
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES,REFERENCE
+UPDATE,urn:managem:pokemon:set/surging-sparks/card/16,,,,,,NM,325,1,,,,,
 ```
 
 ## Validation rules
@@ -101,6 +104,17 @@ UPDATE,urn:managem:pokemon:set/surging-sparks/card/16,,,,,,NM,325,1,,,,
 - Every row must identify one catalog item (via `URN`, `GAME+SET+NAME`, or external ID, such as `CARDMARKET_ID` or `TCGPLAYER_ID`).
 - Types are strict (prices are in pence, quantity is integer, HIDDEN is true/false).
 - If a value isn't recognized (e.g., an unknown condition), the row will be recorded as an error with an explanatory message.
+
+## `REFERENCE` behavior
+
+<Info>
+  The `REFERENCE` column is primarily for third-party integrations, to assist
+  them with connecting their internal records with Managem listings.
+</Info>
+
+- Use `REFERENCE` to store your integration's listing ID for this seller listing.
+- Non-empty values are trimmed and saved.
+- Empty values clear any stored reference.
 
 ## Tips
 

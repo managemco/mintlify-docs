@@ -40,13 +40,14 @@ The **Imports** tool lets Managem sellers bulk-create or bulk-update listings fo
 ## Requirements & limits
 
 - **Header (exact order):**  
-  `MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES`
+  `MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES,REFERENCE`
 - **File size:** up to **2,000,000 rows** (header + rows). Files with mismatched/extra/missing columns are rejected before storage.
 - **Row identification:** each row must include **either** `URN` **or** `(GAME + SET + NAME)` **or** an external marketplace ID (`CARDMARKET_ID` or `TCGPLAYER_ID`).
 - **Listing operation:** `MODE` is `CREATE` or `UPDATE`.
   - `CREATE` makes a new listing for the seller.
   - `UPDATE` modifies the seller's existing listing; if none exists you'll see a `404` error for that row.
-- **Optional fields:** `VARIANTS`, `HIDDEN`, `COMMENT`, `NOTES` are optional.
+- **Optional fields:** `VARIANTS`, `HIDDEN`, `COMMENT`, `NOTES`, and `REFERENCE` are optional.
+- **`REFERENCE` behavior:** Use a non-empty value to set/update your integration ID, use an empty value to clear it, and if your CSV exporter omits the trailing `REFERENCE` cell the existing value is left unchanged.
 
 ---
 
@@ -82,6 +83,7 @@ Open **View details** to see:
 ## Common gotchas
 
 - **Header order matters.** Even a swapped column causes a hard reject.
+- **Legacy headers fail.** CSV files that stop at `NOTES` are rejected. Add `REFERENCE` as the final header column.
 - **Ambiguous rows.** If your identifiers match more than one catalog item or more than one of your existing listings, you'll get a **409 Conflict** error. Add a `URN` or the right `VARIANTS` value to disambiguate.
 - **UPDATE without an existing listing.** You'll get a **404** telling you to create the listing before you can update it.
 
