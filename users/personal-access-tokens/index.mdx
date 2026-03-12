@@ -1,0 +1,21 @@
+---
+title: "Overview"
+description: "Manage Personal Access Tokens (PATs) for API integrations"
+---
+
+Create, rotate, and revoke Personal Access Tokens (PATs) for non-interactive API integrations.
+
+PATs authenticate as the user who created them. If that user has an active seller account, the PAT can be used to perform seller actions on their behalf, including creating listings, updating orders, and managing webhooks.
+
+Typical integration flow:
+
+1. Create a PAT from the personal access token endpoints.
+2. Store the token in your secrets manager.
+3. Send requests with `Authorization: ApiKey [personal-access-token]`.
+4. Rotate regularly and revoke tokens that are no longer required.
+
+Security boundaries:
+
+- Maximum 5 active PATs per user.
+- PAT names must be unique per user.
+- Expiry is optional, but when provided it must be at least 24 hours in the future.

@@ -1,0 +1,100 @@
+---
+title: "Handling Import Errors"
+description: "Learn how to handle errors during CSV imports on Managem"
+---
+
+Most imports complete without issues. When something does go wrong, we show you the exact CSV line, an error code, and a message that tells you what to change.
+
+---
+
+## Where errors appear
+
+- **My Imports → View details → View Errors**
+- **Import Details** page → **Errors** section
+
+Each error shows:
+
+- The **error code** (e.g., `404`, `409`)
+- An easy-to-understand error **message**
+- The **original CSV line** we processed
+
+Example (from a real failure):
+
+```sh
+Multiple listings found for seller with URN `urn:managem:pokemon:set/surging-sparks/card/16`
+Code: 409 • Line: 'UPDATE,"urn:managem:pokemon:set/surging-sparks/card/16",,,,,"",,PO,8,1,,,'
+```
+
+---
+
+## Error types & how to fix them
+
+### `404` — Not found
+
+**What it means**
+
+- For `CREATE`: We couldn't find an item matching the lookup information you provided.
+- For `UPDATE`: Either the item wasn't found, **or** you don't have an existing listing for it.
+
+**How to fix**
+
+- Prefer a **`URN`** for precise matching, or verify your `(GAME + SET + NAME)` spelling matches Managem's catalog.
+- If updating, confirm you _already have_ a listing for the item. If not, run a `CREATE` first.
+
+---
+
+### `409` — Conflict (multiple matches)
+
+**What it means**
+
+- Your identifiers matched **more than one** catalog item, **or** for `UPDATE` we found **multiple** listings for that item.
+
+**How to fix**
+
+- Add a **specific `URN`** _or_, so we can pinpoint the exact listing.
+- If you truly have duplicate active listings for the same item, archive/merge them in the UI, then re-run the import line.
+
+---
+
+### Validation errors (bad types or values)
+
+**What it means**
+
+- Something in the row failed basic validation (e.g., malformed number, unrecognized condition, invalid boolean).
+
+**How to fix**
+
+- Ensure numeric columns (`PRICE`, `QUANTITY`) contain integer numbers, `HIDDEN` is `true`/`false`, and `CONDITION` matches the options the values on [Building a CSV](/sellers/imports/building-a-csv).
+
+---
+
+## Fix & re-run only the broken rows
+
+You don't need to re-upload the whole file.
+
+1. Export/copy the error lines from the **Errors** section.
+2. Create a new CSV that **keeps the same header** and includes only the fixed rows.
+3. Upload that file as a new import.
+
+> Why a new import?  
+> Imports are immutable runs. Creating a new import gives you a clean audit trail and clear success/failed counts for the retry.
+
+---
+
+## Status recap
+
+- **FAILED** — At least one row failed in any batch. Successful rows remain applied.
+- **COMPLETED** — All batches finished and **no** errors were recorded.
+- **TERMINATED** — You stopped the import. Everything processed up to that point remains applied.
+- **PAUSED** — Waiting for you to **Resume**.
+- **RUNNING** — Batches are actively processing.
+
+---
+
+## Tips
+
+- **Use URNs whenever possible** — fastest way to avoid `404` errors.
+- **Start small** — a 5-10 line "smoke test" catches formatting issues before a big run.
+- **Keep notes** in the `NOTES` column for your own audit trail (they're not visible to customers).
+
+If you're stuck on a specific error message and the suggestion above doesn't help, copy the full error (including the CSV line) into a support ticket and email support@managem.co.uk — we'll tell you exactly what's ambiguous and how to make it unambiguous.

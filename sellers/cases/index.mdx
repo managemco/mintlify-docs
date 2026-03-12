@@ -1,0 +1,26 @@
+---
+title: "Overview"
+description: "What are cases and how do they work?"
+---
+
+Cases are Managem's dispute workflow between a buyer and a seller for one or more order items.
+
+Use the seller-cases endpoints when a seller needs to review evidence, negotiate an outcome, and close disputes in a structured way.
+
+## Dispute lifecycle (step-by-step)
+
+1. A dispute is opened against order items through an order update action (\`action: "dispute"\`).
+2. Managem creates a case, links disputed items, records initial outcomes, and starts a background case workflow.
+3. Both parties can add evidence using the case attachment upload/finalize flow.
+4. Buyer and seller can propose outcomes (\`RETURN\`, \`REFUND\`, \`REPLACEMENT\`), then accept or reject the other party's proposals.
+5. If a \`RETURN\` outcome is accepted, the case enters \`SETTLED\` until the return is resolved (\`resolve\`), then closes.
+6. If \`REFUND\` or \`REPLACEMENT\` is accepted, the case closes directly.
+7. If unresolved, the system escalates open/remediation cases after 7 days.
+
+## Rules and guardrails
+
+- Disputes are limited to eligible order items (for example, not already refunded/resolved/disputed).
+- Items can only be disputed within 30 days of their last update.
+- Outcome amount proposals cannot exceed disputed item total + delivery charge.
+- A party cannot accept or reject its own proposed outcome.
+- Escalated/closed cases are locked from normal case updates.

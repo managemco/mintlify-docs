@@ -1,0 +1,486 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "docs",
+  "colors": {
+    "primary": "#927dff",
+    "light": "#927dff",
+    "dark": "#927dff"
+  },
+  "favicon": "/logo/logo.svg",
+  "icons": {
+    "library": "lucide"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Marketplace",
+        "icon": "store",
+        "openapi": "https://api.managem.localhost:1355/doc?",
+        "playground": "interactive",
+        "groups": [
+          {
+            "group": "Search",
+            "icon": "binoculars",
+            "pages": [
+              "marketplace/search-and-data",
+              {
+                "group": "Cards & sealed products",
+                "pages": [
+                  "POST /search",
+                  "GET /search/lookup",
+                  "POST /search/lookup/bulk"
+                ]
+              },
+              {
+                "group": "Users",
+                "pages": [
+                  "POST /search/users"
+                ]
+              },
+              {
+                "group": "Hierarchy",
+                "pages": [
+                  "GET /search/hierarchy",
+                  "POST /search/hierarchy/{game}",
+                  "POST /search/hierarchy/{game}/{set}",
+                  "POST /search/hierarchy/{game}/{set}/{type}"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Listings",
+            "icon": "list",
+            "pages": [
+              "POST /listings",
+              "POST /listings/seller/{id}",
+              "POST /listings/item",
+              "GET /listings/prices"
+            ]
+          },
+          {
+            "group": "Profile",
+            "icon": "user",
+            "pages": [
+              "GET /profile/{identifier}",
+              "GET /profile/{identifier}/reviews"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Sellers",
+        "openapi": "https://api.managem.localhost:1355/doc",
+        "playground": "interactive",
+        "groups": [
+          {
+            "group": "Selling",
+            "icon": "store",
+            "pages": [
+              "sellers/index",
+              "sellers/getting-started",
+              "sellers/grading-your-cards",
+              "sellers/packing-your-order"
+            ]
+          },
+          {
+            "group": "Listings",
+            "icon": "list",
+            "pages": [
+              {
+                "group": "Management",
+                "expanded": false,
+                "pages": [
+                  "POST /seller/listings",
+                  "POST /seller/listings/bulk",
+                  "GET /seller/listings/{id}",
+                  "PUT /seller/listings/{id}",
+                  "DELETE /seller/listings/{id}"
+                ]
+              },
+              {
+                "group": "Search",
+                "expanded": false,
+                "pages": [
+                  "POST /seller/listings/search",
+                  "GET /seller/listings/items"
+                ]
+              },
+              {
+                "group": "Image attachments",
+                "expanded": false,
+                "pages": [
+                  "POST /seller/listings/{id}/attachments",
+                  "PATCH /seller/listings/{id}/attachments",
+                  "DELETE /seller/listings/{id}/attachments"
+                ]
+              },
+              "POST /seller/listings/suggest"
+            ]
+          },
+          {
+            "group": "Account",
+            "icon": "user",
+            "pages": [
+              "POST /seller",
+              "GET /seller",
+              "GET /seller/status",
+              "PATCH /seller/vacation",
+              "GET /seller/dashboard"
+            ]
+          },
+          {
+            "group": "Finance",
+            "expanded": false,
+            "icon": "notebook",
+            "pages": [
+              "GET /seller/balance",
+              "POST /seller/payouts/withdraw",
+              "GET /seller/payouts",
+              "GET /seller/transfers"
+            ]
+          },
+          {
+            "group": "Delivery Configuration",
+            "icon": "truck",
+            "expanded": false,
+            "pages": [
+              "GET /seller/delivery-options",
+              "PUT /seller/delivery-options"
+            ]
+          },
+          {
+            "group": "Orders",
+            "icon": "shopping-cart",
+            "expanded": false,
+            "pages": [
+              {
+                "group": "Management",
+                "expanded": false,
+                "pages": [
+                  "GET /seller/orders",
+                  "GET /seller/orders/{id}",
+                  "POST /seller/orders/{id}",
+                  "GET /seller/orders/{id}/history",
+                  "POST /seller/orders/{id}/cancel"
+                ]
+              },
+              {
+                "group": "Carriers",
+                "expanded": false,
+                "pages": [
+                  "GET /seller/orders/carriers"
+                ]
+              },
+              {
+                "group": "Packing slip",
+                "expanded": false,
+                "pages": [
+                  "GET /seller/orders/{id}/packing-slip"
+                ]
+              },
+              {
+                "group": "Shipment attachments",
+                "expanded": false,
+                "pages": [
+                  "POST /seller/orders/{id}/shipments/{shipmentId}/attachments",
+                  "PATCH /seller/orders/{id}/shipments/{shipmentId}/attachments"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Cases",
+            "icon": "heart-crack",
+            "expanded": false,
+            "pages": [
+              "sellers/cases/index",
+              "GET /seller/cases",
+              "GET /seller/cases/{id}",
+              "PUT /seller/cases/{id}",
+              {
+                "group": "Case attachments",
+                "pages": [
+                  "POST /seller/cases/{id}/attachments",
+                  "PATCH /seller/cases/{id}/attachments"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Imports",
+            "icon": "cloud-upload",
+            "expanded": false,
+            "pages": [
+              "sellers/imports/index",
+              "sellers/imports/building-a-csv",
+              "sellers/imports/creating-an-import",
+              "sellers/imports/handling-errors",
+              "GET /seller/imports",
+              "POST /seller/imports",
+              "GET /seller/imports/{id}",
+              "PATCH /seller/imports/{id}/status/{mode}"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "icon": "plug",
+            "expanded": false,
+            "pages": [
+              "seller/webhooks/index",
+              {
+                "group": "Management",
+                "pages": [
+                  "GET /seller/webhooks/metrics",
+                  "GET /seller/webhooks",
+                  "POST /seller/webhooks",
+                  "GET /seller/webhooks/{webhookId}",
+                  "PATCH /seller/webhooks/{webhookId}",
+                  "DELETE /seller/webhooks/{webhookId}",
+                  "PUT /seller/webhooks/{webhookId}/subscriptions"
+                ]
+              },
+              {
+                "group": "Testing",
+                "pages": [
+                  "GET /seller/webhooks/{webhookId}/test"
+                ]
+              },
+              {
+                "group": "Error handling",
+                "pages": [
+                  "GET /seller/webhooks/{webhookId}/failures",
+                  "GET /seller/webhooks/{webhookId}/failures/{failureId}",
+                  "GET /seller/webhooks/{webhookId}/failures/{failureId}/download"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Stats",
+            "icon": "chart-bar",
+            "expanded": false,
+            "pages": [
+              "GET /seller/stats"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Buyers",
+        "openapi": "https://api.managem.localhost:1355/doc",
+        "playground": "interactive",
+        "groups": [
+          {
+            "group": "Basket",
+            "icon": "shopping-basket",
+            "pages": [
+              "GET /basket/{id}",
+              "GET /basket/{id}/summary",
+              "GET /basket/{id}/info",
+              "POST /basket/{id}",
+              "PUT /basket/{id}",
+              "DELETE /basket/{id}",
+              "POST /basket/{id}/checkout"
+            ]
+          },
+          {
+            "group": "Conversations",
+            "icon": "message-circle-more",
+            "pages": [
+              "GET /conversations",
+              "POST /conversations",
+              "GET /conversations/unread-count",
+              {
+                "group": "Conversation",
+                "pages": [
+                  "POST /conversations/{id}/lock",
+                  "GET /conversations/{id}/messages",
+                  "POST /conversations/{id}/messages"
+                ]
+              },
+              {
+                "group": "Attachments",
+                "pages": [
+                  "POST /conversations/{id}/messages/{messageId}/attachments",
+                  "PATCH /conversations/{id}/messages/{messageId}/attachments",
+                  "DELETE /conversations/{id}/messages/{messageId}/attachments/{attachmentId}"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Account",
+            "icon": "user",
+            "pages": [
+              "GET /user/account",
+              {
+                "group": "Update profile",
+                "pages": [
+                  "PUT /user/account/profile"
+                ]
+              },
+              {
+                "group": "Update password",
+                "pages": [
+                  "PUT /user/account/password"
+                ]
+              },
+              {
+                "group": "Update email",
+                "pages": [
+                  "PATCH /user/account/email",
+                  "PUT /user/account/email"
+                ]
+              },
+              {
+                "group": "Update phone number",
+                "pages": [
+                  "PATCH /user/account/phone-number",
+                  "PUT /user/account/phone-number",
+                  "DELETE /user/account/phone-number"
+                ]
+              },
+              {
+                "group": "Avatar & cover",
+                "pages": [
+                  "POST /user/account/avatar",
+                  "PATCH /user/account/avatar",
+                  "POST /user/account/cover",
+                  "PATCH /user/account/cover"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Addresses",
+            "icon": "house",
+            "pages": [
+              "POST /user/addresses/lookup/find",
+              "POST /user/addresses/lookup/retrieve",
+              "POST /user/addresses",
+              "GET /user/addresses",
+              "DELETE /user/addresses/{id}"
+            ]
+          },
+          {
+            "group": "Purchases",
+            "icon": "coins",
+            "pages": [
+              "GET /user/purchases",
+              "GET /user/purchases/{id}",
+              "GET /user/purchases/{id}/history",
+              "POST /user/purchases/{id}/{orderId}",
+              "POST /user/purchases/{id}/cancel"
+            ]
+          },
+          {
+            "group": "Reviews",
+            "icon": "pen-tool",
+            "pages": [
+              "users/reviews/index",
+              "GET /user/reviews",
+              "POST /user/reviews",
+              "GET /user/reviews/{id}",
+              "PUT /user/reviews/{id}",
+              "DELETE /user/reviews/{id}"
+            ]
+          },
+          {
+            "group": "Cases",
+            "icon": "heart-crack",
+            "pages": [
+              "users/cases/index",
+              "GET /user/cases",
+              "GET /user/cases/{id}",
+              "PUT /user/cases/{id}",
+              {
+                "group": "Case attachments",
+                "pages": [
+                  "POST /user/cases/{id}/attachments",
+                  "PATCH /user/cases/{id}/attachments"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Invoices",
+            "icon": "scroll-text",
+            "pages": [
+              "GET /user/invoices",
+              "GET /user/invoices/{invoiceId}"
+            ]
+          },
+          {
+            "group": "Portal",
+            "icon": "earth",
+            "pages": [
+              "GET /user/portal"
+            ]
+          },
+          {
+            "group": "Personal Access Tokens",
+            "icon": "lock-keyhole",
+            "pages": [
+              "users/personal-access-tokens/index",
+              "GET /user/personal-access-tokens",
+              "POST /user/personal-access-tokens",
+              "DELETE /user/personal-access-tokens"
+            ]
+          },
+          {
+            "group": "Stats",
+            "icon": "chart-no-axes-combined",
+            "pages": [
+              "GET /user/stats"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "href": "https://docs.managem.co.uk",
+          "icon": "book"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/logo.svg",
+    "dark": "/logo/logo.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@managem.co.uk"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Marketplace",
+      "href": "https://managem.co.uk"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "discord": "https://discord.gg/qaU4KSEQRd"
+    }
+  }
+}

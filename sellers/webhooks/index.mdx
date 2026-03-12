@@ -1,0 +1,118 @@
+---
+title: "Overview"
+description: "Manage outbound event delivery from Managem to your seller integrations"
+---
+
+Manage outbound event delivery from Managem to your seller integrations.
+
+Seller webhooks let your systems react to marketplace activity without polling. Endpoints in this tag cover full lifecycle management: create, list, update, subscription changes, test delivery, and failure/metrics diagnostics.
+
+Authentication model:
+
+- Webhook endpoints are scoped to the authenticated seller.
+- Calls can be authenticated with normal bearer access tokens.
+- Automation services can also use Personal Access Tokens (PATs) created by the seller account and sent as `Authorization: ApiKey <personal-access-token>`.
+
+## Events
+
+### `LISTING_CREATED`
+
+Fired after a listing is successfully created, including single and bulk creates.
+
+Payload
+
+```json
+{
+  "type": "LISTING_CREATED",
+  "data": {
+    "sellerId": "string",
+    "createdAt": "ISO-8601 datetime",
+    "urn": "string",
+    "listingId": "string",
+    "quantity": "integer >= 0",
+    "price": "number >= 0"
+  }
+}
+```
+
+---
+
+### `LISTING_UPDATED`
+
+Fired after a seller updates an existing listing through `PUT /seller/listings/{id}`.
+
+> Note: Quantity updates from orders do not trigger this event. Only explicit seller-initiated listing updates through the API will fire `LISTING_UPDATED`.
+
+Payload
+
+```json
+{
+  "type": "LISTING_UPDATED",
+  "data": {
+    "sellerId": "string",
+    "createdAt": "ISO-8601 datetime",
+    "urn": "string",
+    "listingId": "string",
+    "quantity": "integer >= 0",
+    "price": "number >= 0"
+  }
+}
+```
+
+---
+
+### `ORDER_CREATED`
+
+Fired when checkout is committed into seller orders. One event per created seller order.
+
+Payload
+
+```json
+{
+  "type": "ORDER_CREATED",
+  "data": {
+    "sellerId": "string",
+    "createdAt": "ISO-8601 datetime",
+    "orderId": "string",
+    "listings": [
+      {
+        "urn": "string",
+        "listingId": "string",
+        "quantity": "integer >= 0",
+        "price": "number >= 0"
+      }
+    ]
+  }
+}
+```
+
+---
+
+### `TEST_WEBHOOK`
+
+Fired when you trigger a test delivery for a webhook endpoint. This is a synthetic event type used to validate your receiver logic and endpoint configuration. It is not related to any marketplace activity and will not be fired automatically by any system events.
+
+Payload
+
+```json
+{
+  "type": "TEST_WEBHOOK",
+  "data": {
+    "sellerId": "string",
+    "createdAt": "ISO-8601 datetime"
+  }
+}
+```
+
+Forward-compatibility:
+
+- Subscription enums already include additional event types such as `LISTING_DELETED` and `ORDER_UPDATED`.
+- Receivers should treat unknown event types as forward-compatible additions and ignore unsupported events safely.
+
+Recommended rollout:
+
+1. Create the endpoint in a disabled state.
+2. Configure subscriptions and optional custom headers.
+3. Run webhook test delivery and validate receiver processing.
+4. Enable deliveries in production.
+5. Monitor reliability with webhook metrics and failure inspection endpoints.

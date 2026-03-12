@@ -1,0 +1,25 @@
+---
+title: "Overview"
+description: "What are cases and how do they work?"
+---
+
+Cases are Managem's dispute workflow between a buyer and seller for contested order items.
+
+From the buyer side, these endpoints let you track a dispute from first report to final resolution without leaving the purchase flow.
+
+## Dispute lifecycle (step-by-step)
+
+1. A case begins when disputed items are submitted through a purchase/order dispute action.
+2. Managem opens the case, records reason/comment, links disputed items, and stores initial proposed outcomes.
+3. Both sides can upload case evidence (create upload URL, then finalize attachment).
+4. Both sides can continue negotiation by proposing outcomes (`RETURN`, `REFUND`, `REPLACEMENT`).
+5. Outcomes can be accepted or rejected by the opposite party:
+   - accepted `RETURN` -> case moves to `SETTLED` and later `CLOSED` when resolved
+   - accepted `REFUND`/`REPLACEMENT` -> case moves directly to `CLOSED`
+6. Either party can escalate, and unresolved open/remediation cases are auto-escalated by the system after 7 days.
+
+## Buyer-focused behavior
+
+- If a `RETURN` outcome is proposed, seller return-address details are hidden until a seller accepts the return outcome.
+- Case history is recorded as actions happen, so timeline/audit views can explain who did what.
+- Stats are invalidated as case state changes to keep buyer/seller dashboard counts current.

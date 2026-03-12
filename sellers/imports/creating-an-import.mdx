@@ -1,0 +1,72 @@
+---
+title: "Creating an Import"
+description: "Learn how to create and monitor an import in Managem"
+---
+
+Once your CSV is ready, uploading and monitoring it is quick. This page walks through the UI from upload to completion.
+
+---
+
+## 1) Go to **Imports → Upload CSV**
+
+You'll see a drag-and-drop area with a **Choose File** control and an **Upload CSV** button.
+
+1. Drag your CSV into the dropzone _or_ click **Choose File**.
+2. Click **Upload CSV**.
+
+If the header doesn't match or the file is empty/too large, the upload is rejected immediately with a clear message.
+
+---
+
+## 2) Watch **My Imports**
+
+After upload, your import appears at the top of **My Imports**:
+
+- A status pill (e.g., **Running**)
+- Counters: **Total**, **Successful**, **Failed**
+- **Pause** and **Terminate** buttons
+- **View details** for a deeper look
+
+> What “Total / Successful / Failed” mean
+>
+> - **Total** — number of data rows in your CSV (not including the header).
+> - **Successful** — rows where a listing was created or updated.
+> - **Failed** — rows recorded with an error (see **Handling errors**).
+
+---
+
+## 3) Drill into **Import Details**
+
+Click **View details** to open the side panel, then **View Full Details** for the full page. You'll see:
+
+- **Status** of the import (`RUNNING`, `PAUSED`, `FAILED`, `COMPLETED`, or `TERMINATED`)
+- Overall **Total / Successful / Failed** counters
+- A **Batches** table with each batch's status (e.g., `QUEUED`, `RUNNING`, `COMPLETED`) and per-batch counts
+- If any rows failed, a **View Errors** button and an **Errors** section listing each broken line and why it failed
+
+---
+
+## 4) Control long-running jobs
+
+- **Pause** — tells all active batches to pause cleanly. The import switches to **PAUSED** once batches stop pulling new work.
+- **Resume** — available only on paused imports; processing continues where it left off.
+- **Terminate** — stops all batches and marks the import **TERMINATED**. Already-processed rows remain created/updated; nothing more runs.
+
+> You can always start a new import with just the rows you still need to process.
+
+---
+
+## 5) Know when you're done
+
+- If **Failed > 0**, the import is marked **FAILED**. Fix the lines shown in **Errors**, then re-upload a new CSV containing only those rows.
+- If **Failed = 0** and all batches finished, the import is **COMPLETED**.
+
+Either way, your successful rows are already live (for `CREATE`) or updated (for `UPDATE`).
+
+---
+
+## Behind the scenes (for the curious)
+
+- We split your CSV into batches of roughly **2,000–25,000 rows** and run up to **80** in parallel.
+- Each batch repeatedly fetches its slice from storage and streams it through the same validation used at upload time.
+- We write results in small transactions to keep your counters fresh and the UI responsive.

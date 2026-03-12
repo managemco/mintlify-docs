@@ -1,0 +1,24 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/managemco/docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/managemco/docs/issues"
+  },
+  "homepage": "https://github.com/managemco/docs#readme",
+  "description": "Managem documentation website, powered by Mintlify",
+  "scripts": {
+    "dev": "NODE_OPTIONS=--use-system-ca portless --app-port 4562 docs.managem mint dev --port 4562"
+  },
+  "devDependencies": {
+    "mint": "^4.2.423",
+    "portless": "^0.6.0"
+  }
+}

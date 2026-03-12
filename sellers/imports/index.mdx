@@ -1,0 +1,94 @@
+---
+title: "Overview"
+description: "Learn how to import thousands of listings into Managem"
+---
+
+The **Imports** tool lets Managem sellers bulk-create or bulk-update listings for single cards and sealed products using a CSV file. You upload a file once, we split it into smart batches, and process your rows in the background. You can monitor progress in real-time, pause/terminate an in-flight import, and drill into per-row errors if anything needs fixing.
+
+## Quick links
+
+- **[Building an Import CSV](/sellers/imports/building-a-csv)** — Exact header, accepted identifiers, and working examples.
+- **[Creating an Import](/sellers/imports/creating-an-import)** — Upload the CSV, watch progress, and manage running imports.
+- **[Handling errors](/sellers/imports/handling-errors)** — What error codes mean (`404` vs `409`), how to fix a row, and how to re-run only the problem lines.
+
+---
+
+## At a glance
+
+- **What it's for:** Sellers with _hundreds or thousands_ of cards/products to list or update.
+- **What you need:** One CSV whose header exactly matches our schema. Every row must identify a catalog item using **one** of: `URN`, `(GAME + SET + NAME)`, or an external marketplace ID, such as Cardmarket or TCGPlayer.
+- **What you get:** Live status, success/failed counters, batch visibility, and row-level error messages that show the original CSV line.
+
+---
+
+## How it works (high level)
+
+1. **Upload** a CSV from **Imports → Upload CSV**.
+2. We **validate** the header and each row (types/values) up-front.
+3. The file is saved to secure storage and an **import** record is created.
+4. Your import is **batched** (≈2k-25k rows per batch, up to 80 in parallel).
+5. Each batch **creates** or **updates** listings row-by-row and writes successes/failures back to your import.
+6. You can **pause**, **resume**, or **terminate** from **My Imports** at any time.
+
+<Tip>
+  Start with a tiny CSV (5-10 rows) to validate your format, then upload the big
+  file.
+</Tip>
+
+---
+
+## Requirements & limits
+
+- **Header (exact order):**  
+  `MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES`
+- **File size:** up to **2,000,000 rows** (header + rows). Files with mismatched/extra/missing columns are rejected before storage.
+- **Row identification:** each row must include **either** `URN` **or** `(GAME + SET + NAME)` **or** an external marketplace ID (`CARDMARKET_ID` or `TCGPLAYER_ID`).
+- **Listing operation:** `MODE` is `CREATE` or `UPDATE`.
+  - `CREATE` makes a new listing for the seller.
+  - `UPDATE` modifies the seller's existing listing; if none exists you'll see a `404` error for that row.
+- **Optional fields:** `VARIANTS`, `HIDDEN`, `COMMENT`, `NOTES` are optional.
+
+---
+
+## Tracking progress
+
+**My Imports** shows every import with:
+
+- **Status:** `RUNNING`, `PAUSED`, `FAILED`, `COMPLETED`, or `TERMINATED`.
+- **Counters:** `Total`, `Successful`, `Failed` (updated as batches finish).
+- **Actions:** **Pause** / **Resume** / **Terminate** and **View details**.
+
+Open **View details** to see:
+
+- A live **Import Details** panel (status + counters).
+- A **Batches** table with each batch's status (for example `QUEUED`, `RUNNING`, `COMPLETED`) and per-batch counts.
+- If any rows fail, a **View Errors** button appears and an **Errors** section on the details page, showing the original CSV line and a helpful message.
+
+<Note>
+  <ul>
+    <li>
+      An import is **FAILED** if _any_ batch recorded errors (failed rows are
+      preserved for review).
+    </li>
+    <li>
+      An import is **COMPLETED** when _all_ batches have finished and no errors
+      were recorded.
+    </li>
+  </ul>
+</Note>
+
+---
+
+## Common gotchas
+
+- **Header order matters.** Even a swapped column causes a hard reject.
+- **Ambiguous rows.** If your identifiers match more than one catalog item or more than one of your existing listings, you'll get a **409 Conflict** error. Add a `URN` or the right `VARIANTS` value to disambiguate.
+- **UPDATE without an existing listing.** You'll get a **404** telling you to create the listing before you can update it.
+
+---
+
+## Next steps
+
+1. Read **[Building an Import CSV](/sellers/imports/building-a-csv)** to assemble a correct file.
+2. Follow **[Creating an Import](/sellers/imports/creating-an-import)** to upload and monitor.
+3. If anything fails, jump to **[Handling errors](/sellers/imports/handling-errors)** for quick fixes and example re-runs.

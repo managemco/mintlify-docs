@@ -1,0 +1,30 @@
+---
+title: "Overview"
+description: "Improve trust and transparency with buyer and seller reviews"
+---
+
+Reviews are the trust layer between buyers and sellers after an order interaction.
+
+## How review permissions work
+
+- Reviews are currently order-scoped only.
+- Only the buyer and seller attached to that order can review each other.
+- You cannot review yourself.
+- Each reviewer can leave only one review per order.
+
+## How review scoring works
+
+1. A valid review is created.
+2. The reviewed user's aggregate rating stats are updated immediately.
+3. If the review is edited, aggregates are recalculated from rating delta.
+4. If the review is deleted, aggregates are adjusted again.
+
+## Auto-generated reviews after inactivity
+
+Managem also backstops missing reviews in the purchase workflow:
+
+1. When a purchase reaches completed state, the workflow starts a review timer.
+2. Managem then waits 14 days for a review to be left manually by either the buyer and/or seller.
+3. For each order in the purchase, if buyer->seller or seller->buyer review is missing, Managem creates a default 5-star review with an automatic message.
+
+This ensures both parties are not left without reciprocal feedback when one side does not submit a review in time.

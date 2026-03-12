@@ -1,0 +1,110 @@
+---
+title: "Building a CSV"
+description: "Learn how to build a CSV for importing listings into Managem"
+---
+
+A well-formed CSV is the key to fast, trouble-free imports. This page shows the _exact_ header, what each column means, and several examples you can copy.
+
+---
+
+## The exact header (copy this)
+
+```csv
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
+```
+
+## Important
+
+- The header must **match exactly** (names and order).
+- Include all columns even if you leave some values blank for a row.
+- Files with the wrong header are rejected before upload is accepted.
+
+## What each column means
+
+| Column          | Required?                                                               | Purpose                                                                                                                                                |
+| --------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `MODE`          | Yes                                                                     | `CREATE` to create a new listing, `UPDATE` to update your existing listing.                                                                            |
+| `URN`           | One of `URN` or (`GAME` + `SET` + `NAME`) or an external ID is required | Managem's unique catalog identifier (e.g., `urn:managem:pokemon:set/surging-sparks/card/1`). Most precise.                                             |
+| `GAME`          | Conditional                                                             | Game name as recognized by Managem (used alongside `SET` and `NAME`), `"Pokemon"`, for example.                                                        |
+| `SET`           | Conditional                                                             | Set as recognized by Managem (used with `GAME` and `NAME`). `"Surging Sparks"`, for example.                                                           |
+| `NAME`          | Conditional                                                             | Card/product name as recognized by Managem (used with `GAME` and `SET`). `"Vulpix"` for example.                                                       |
+| `CARDMARKET_ID` | Conditional                                                             | External marketplace identifier (if you prefer to map via Cardmarket).                                                                                 |
+| `TCGPLAYER_ID`  | Conditional                                                             | External marketplace identifier (if you prefer to map via TCGplayer).                                                                                  |
+| `CONDITION`     | Yes                                                                     | Must be one of the valid conditions listed below. If invalid, the row will fail validation.                                                            |
+| `PRICE`         | Yes                                                                     | Listing **price in pence**, "100" for £1                                                                                                               |
+| `QUANTITY`      | Yes                                                                     | Integer quantity for the listing.                                                                                                                      |
+| `VARIANTS`      | Optional (recommended when variants exist)                              | Use when a card/product has multiple variants (e.g., language/edition/packaging). Include the variant identifier shown in the catalog or your listing. |
+| `HIDDEN`        | Optional                                                                | `true`/`false`. When `true`, the created/updated listing is hidden from buyers.                                                                        |
+| `COMMENT`       | Optional                                                                | Free-form comment visible to buyers (same as listing comment).                                                                                         |
+| `NOTES`         | Optional                                                                | Private notes, visible only to you.                                                                                                                    |
+
+### Guidance on identifiers
+
+- Best: URN – precise and fast to match.
+- Also fine: External IDs (CARDMARKET_ID or TCGPLAYER_ID).
+- Good when curated carefully: (GAME + SET + NAME). Make sure the strings match Managem's catalog text.
+
+## Conditions
+
+The following condition values are valid for listings. For example, if your listing is in "Near Mint" condition, you would use `NM` as the value.
+
+- **Mint:** `MT`
+- **Near Mint:** `NM`
+- **Excellent:** `EX`
+- **Good:** `GD`
+- **Lightly Played:** `LP`
+- **Played:** `PL`
+- **Poor:** `PO`
+
+## Examples
+
+1. `CREATE` using a URN (recommended)
+
+In this example, we're creating a new listing by using Managem's URN identifier, to target a specific item (single card), creating it with a "Near Mint" condition for £3.50 and a quantity of 1. It also has a seller note, indicating a SKU that the seller will recognise upon receiving an order containing it.
+
+```csv
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
+CREATE,urn:managem:pokemon:set/surging-sparks/card/16,,,,,,NM,350,1,,,,SKU65125
+```
+
+2. `CREATE` using Game/Set/Name
+
+In the following example, we're creating a new listing for Vulpix, in the Surging Sparks (Pokemon) set. Upon processing this row, our system will perform a search, attempting to match the game, set and name fields with a specific item.
+
+We've also added a comment to the listing: "Quick delivery".
+
+```csv
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
+CREATE,,Pokemon,Surging Sparks,Vulpix,,,,LP,200,5,,true,"Quick delivery",
+```
+
+3. `CREATE` using an external marketplace ID
+
+Here, we're using Cardmarket's ID for Vulpix in the Surging Sparks (Pokemon) set, to create a new listing.
+
+```csv
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
+CREATE,,,,,794271,,NM,2,1,,false,,
+```
+
+4. `UPDATE` an existing listing (explicit URN)
+
+In the following example, we're updating an existing listing for Vulpix, adjusting its price to £3.25 and setting its quantity to 1.
+
+```csv
+MODE,URN,GAME,SET,NAME,CARDMARKET_ID,TCGPLAYER_ID,CONDITION,PRICE,QUANTITY,VARIANTS,HIDDEN,COMMENT,NOTES
+UPDATE,urn:managem:pokemon:set/surging-sparks/card/16,,,,,,NM,325,1,,,,
+```
+
+## Validation rules
+
+- Every row must identify one catalog item (via `URN`, `GAME+SET+NAME`, or external ID, such as `CARDMARKET_ID` or `TCGPLAYER_ID`).
+- Types are strict (prices are in pence, quantity is integer, HIDDEN is true/false).
+- If a value isn't recognized (e.g., an unknown condition), the row will be recorded as an error with an explanatory message.
+
+## Tips
+
+- **Quote values that contain commas:** e.g., `"Pikachu, the Brave"`.
+- **Keep variants consistent** with the identifiers you see in the listing form/catalog.
+- **Batch large jobs logically** (e.g., one file per game or per set). We'll still split into optimized batches under the hood.
+- **Test small first** — upload 5–10 lines, confirm counters move the way you expect, then run the big CSV.
