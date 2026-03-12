@@ -1,5 +1,5 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
+  "$schema": "https://mintlify.com/schema.json",
   "theme": "mint",
   "name": "docs",
   "colors": {
@@ -16,7 +16,7 @@
       {
         "tab": "Marketplace",
         "icon": "store",
-        "openapi": "https://api.managem.co.uk/doc?",
+        "openapi": "https://api.managem.co.uk/doc",
         "playground": "interactive",
         "groups": [
           {
