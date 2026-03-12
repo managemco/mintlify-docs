@@ -1,0 +1,69 @@
+---
+title: "Authentication"
+description: "Enable your users to sign in with their Managem account and link it to your application."
+---
+
+Allow users to sign in to your application using their Managem account and securely link their Managem identity to your service.
+
+Once connected, your application can make API requests on behalf of the user/seller, enabling features such as verifying seller status, syncing marketplace listings, and interacting with Managem services.
+
+Common integrations include:
+
+- Allowing sellers to connect their Managem account to your platform
+- **Checking whether a user is a verified Managem seller**
+- Syncing listings or marketplace data
+- Building tools or services that interact with the Managem ecosystem
+
+---
+
+## Registering a Third-Party Application
+
+Before you can integrate with Managem authentication, you must register your application.
+
+<Note>
+  Please contact us on [Discord](https://discord.gg/qaU4KSEQRd) to request an
+  application registration and discuss your integration needs.
+</Note>
+
+We will ask for the following information:
+
+- Application name
+- Application logo
+- Redirect / callback URL
+- Terms of Service URL (if available)
+- Privacy Policy URL (if available)
+
+Once approved, we will provide:
+
+- Client ID
+- Client Secret
+- Access to the Managem OAuth endpoints
+
+---
+
+## Authentication Flow
+
+Managem authentication is built on OAuth 2.0, allowing users to securely authorize your application without sharing their credentials.
+
+The flow works as follows:
+
+1. Your application redirects the user to the Managem authorization endpoint.
+1. The user signs in to their Managem account and grants permission to your application.
+1. Managem redirects the user back to your configured redirect URL with an authorization code.
+1. Your server exchanges the code for an access token and refresh token.
+1. Your application can now make API calls on behalf of that user.
+
+Access tokens are short-lived, while refresh tokens can be used to obtain new access tokens without requiring the user to sign in again. This enables offline access and long-term integration with Managem services.
+
+---
+
+## Linking Managem Accounts
+
+When a user authorizes your application:
+
+- Their Managem user ID becomes linked to their account in your system.
+- You receive an access token associated with that user.
+- You receive a refresh token that can be securely stored for future offline access.
+- The user can revoke access at any time from their Managem account settings.
+
+You should store the refresh token securely and use it to obtain new access tokens when required.

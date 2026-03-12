@@ -15,9 +15,11 @@
   "homepage": "https://github.com/managemco/docs#readme",
   "description": "Managem documentation website, powered by Mintlify",
   "scripts": {
-    "dev": "NODE_OPTIONS=--use-system-ca portless --app-port 4562 docs.managem mint dev --port 4562"
+    "dev": "NODE_OPTIONS=--use-system-ca portless --app-port 4562 docs.managem mint dev --port 4562",
+    "check:prose": "git ls-files -z -- '*.md' '*.mdx' ':(exclude).agents/**' | xargs -0 vale"
   },
   "devDependencies": {
+    "mdx2vast": "^0.3.1",
     "mint": "^4.2.423",
     "portless": "^0.6.0"
   }

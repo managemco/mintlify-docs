@@ -66,6 +66,15 @@
               "GET /profile/{identifier}",
               "GET /profile/{identifier}/reviews"
             ]
+          },
+          {
+            "group": "Third party integrations",
+            "icon": "handshake",
+            "pages": [
+              "marketplace/third-party-integrations",
+              "marketplace/integrations/authenticate-users",
+              "marketplace/integrations/syncing"
+            ]
           }
         ]
       },
@@ -228,7 +237,7 @@
             "icon": "plug",
             "expanded": false,
             "pages": [
-              "seller/webhooks/index",
+              "sellers/webhooks/index",
               {
                 "group": "Management",
                 "pages": [

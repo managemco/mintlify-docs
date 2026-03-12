@@ -1,0 +1,62 @@
+---
+title: "Getting started"
+description: "Learn how to integrate with the Managem Marketplace"
+---
+
+We welcome third-party integrations that enhance the Managem ecosystem. If you're interested in building an integration, contact us on [Discord](https://discord.gg/qaU4KSEQRd) to discuss it further with us!
+
+<Columns cols={2}>
+  <Card
+    title="Search & Data"
+    icon="binoculars"
+    href="/marketplace/search-and-data"
+  >
+    Start searching and retrieving single cards and sealed product data in
+    minutes.
+  </Card>
+  <Card
+    title="Crawl pricing history"
+    icon="coins"
+    href="/api-reference/listings/retrieve-historical-prices"
+  >
+    Retrieve historical price data for items on the marketplace.
+  </Card>
+  <Card
+    title="Authenticate Managem users"
+    icon="key"
+    href="/marketplace/integrations/authenticate-users"
+  >
+    Enable your users to sign in with their Managem account and link it to your
+    application.
+  </Card>
+  <Card
+    title="Manage seller listings"
+    icon="handshake"
+    href="/sellers/packing-your-order"
+  >
+    Follow practical guidance to prepare, pack, and dispatch sold items.
+  </Card>
+</Columns>
+
+<Note>
+  Use of our public APIs is actively monitored. **If you make excessive
+  requests**, your access may be rate limited or blocked. If you have a use case
+  that requires a high volume of API calls, please contact us on
+  [Discord](https://discord.gg/qaU4KSEQRd) to discuss your needs.
+</Note>
+
+If you're interested in building an integration, contact us on [Discord](https://discord.gg/qaU4KSEQRd) to arrange the creation of your third-party application, which will allow you to authenticate and link Managem users. We will need:
+
+- Your application name
+- Your logo
+- A terms of use URL (if you have one)
+- A privacy policy URL (if you have one)
+
+Once your application has been created, Managem users can sign in to your application. This will provide you with an access token and refresh token, for each user who links their account, which you can use to make API calls on their behalf.
+
+### Important API Endpoints
+
+- [Get seller status](https://api.managem.co.uk/#tag/seller-account/GET/seller/status)
+- [Manage seller listings](https://api.managem.co.uk/#tag/listings)
+- [Importing listings](https://api.managem.co.uk/#tag/seller-imports)
+- [Registering webhooks](https://api.managem.co.uk/#tag/seller-webhooks)

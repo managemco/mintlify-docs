@@ -1,0 +1,137 @@
+---
+title: "Syncing"
+description: "Keep your application data in sync with a seller's marketplace listings"
+---
+
+Use this guide to sync a seller's listings between your application and Managem.
+
+<Note>
+  Start with **[Authentication](/marketplace/integrations/authenticate-users)**
+  so you can make seller-scoped API calls on behalf of connected users.
+</Note>
+
+## Before you start
+
+1. Confirm the connected user has a seller account with [Get seller status](/api-reference/seller-account/get-seller-status).
+2. Decide how you will mapping managem data in your system:
+   - Between your internal product records
+   - And Managem items (using URN, external IDs or game/set/name)
+   - And Seller's Listing IDs
+3. Choose your write strategy:
+   - Use [Bulk create listings](/api-reference/seller-listings/bulk-create-listings) for smaller batches (up to 200 listings per request).
+   - Use [Create an import](/sellers/imports) for large catalogs.
+
+## Choose an item identity strategy
+
+For stable syncs, map each of your products to a Managem item using a predictable identifier order.
+
+Recommended order:
+
+1. `URN` (best and most deterministic)
+2. `CARDMARKET_ID`
+3. `TCGPLAYER_ID`
+4. `GAME + SET + NAME`
+
+Useful lookup endpoints:
+
+- [Lookup item](/api-reference/search/lookup-item) for single item resolution by `urn` or `slug`
+- [Lookup items by URN](/api-reference/search/lookup-items-by-urn) for batch URN hydration (up to 200 per request)
+- [Full-text faceted search](/api-reference/search/full-text-faceted-search) when you need fallback discovery by text/facets
+
+<Warning>
+  External IDs (Cardmarket and TCGplayer) are not guaranteed to cover every
+  item. Keep a fallback path and flag unresolved matches for review.
+</Warning>
+
+## Run your initial sync
+
+### 1. Pull the seller's current listings
+
+Use [Search your listings](/api-reference/seller-listings/search-your-listings) and paginate with `from` and `size`.
+
+Store at least:
+
+- `listing.id`
+- `item.urn`
+- `condition`
+- `language`
+- `variants`
+- `price`
+- `quantity`
+- `hidden`
+
+### 2. Handle duplicate listings
+
+The seller may have previously listed the same item with your service & Managem. A great experience would be to de-duplicate these listings.
+
+These attributes are useful to detect duplicates:
+
+- `item.game`
+- `item.set.name`
+- `item.number`
+- `price`
+- `quantity`
+- `condition`
+
+### 3. Create and configure a webhook
+
+Create a webhook with [Create webhook](/sellers/webhooks).
+
+Subscribe to events your sync process needs, such as:
+
+- `LISTING_CREATED`
+- `LISTING_UPDATED`
+- `LISTING_DELETED`
+- `ORDER_CREATED`
+- `ORDER_UPDATED`
+
+<Info>We document our webhook event payloads [here](/sellers/webhooks)</Info>
+
+### 4. Test webhook delivery
+
+Run [Test webhook delivery](/api-reference/seller-webhooks/test-webhook-delivery) and confirm `statusCode: 200` before going live.
+
+### 5. Backfill listings from your system
+
+- Each listing supports a `reference` column, which you can populate with your own internal ID.
+- For large datasets, upload CSV jobs with [Create an import](/sellers/imports), then monitor with:
+  - [List imports](/api-reference/seller-imports/list-imports)
+  - [Retrieve an import](/api-reference/seller-imports/retrieve-an-import)
+- For smaller batches, push directly with [Bulk create listings](/api-reference/seller-listings/bulk-create-listings)
+
+For CSV format and error handling, see:
+
+- **[Building a CSV](/sellers/imports/building-a-csv)**
+- **[Creating an Import](/sellers/imports/creating-an-import)**
+- **[Handling Import Errors](/sellers/imports/handling-errors)**
+
+## Keep listings in sync
+
+Your ongoing sync loop should be webhook-driven.
+
+When you receive events:
+
+- `LISTING_CREATED`: create or update local listing mapping.
+- `LISTING_UPDATED`: update local listing state (price, quantity, visibility, notes).
+- `LISTING_DELETED`: mark listing inactive in your system.
+- `ORDER_CREATED` and `ORDER_UPDATED`: update availability/reserved quantities in your local model.
+- `TEST`: use only as a connectivity check.
+
+Ensure that your implementation is idempotent, so that retries do not create duplicate records or unintended side effects. Use unique constraints and update logic where appropriate to maintain data integrity.
+
+## Handle failures and drift
+
+If webhook delivery degrades:
+
+- Inspect failures with [List delivery failures](/api-reference/seller-webhooks/list-delivery-failures)
+- Inspect a specific failure with [Retrieve webhook failure](/api-reference/seller-webhooks/retrieve-webhook-failure)
+- Download HAR traces with [Download failure HAR](/api-reference/seller-webhooks/download-failure-har)
+- Monitor trends using [Get delivery metrics](/api-reference/seller-webhooks/get-delivery-metrics)
+
+Also run a periodic reconciliation job:
+
+1. Re-fetch listings with `POST /seller/listings/search`.
+2. Compare marketplace state with your local state.
+3. Repair mismatches and refresh mapping records.
+
+This gives you a safety net for missed webhooks or transient processing failures.

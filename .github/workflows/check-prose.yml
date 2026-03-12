@@ -1,0 +1,35 @@
+name: Check prose
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  vale:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Vale
+        run: |
+          VALE_VERSION="3.13.1"
+          curl -sSfL "https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz" -o vale.tar.gz
+          tar -xzf vale.tar.gz
+          sudo install -m 0755 vale /usr/local/bin/vale
+          vale --version
+
+      - name: Run prose checks
+        run: npm run check:prose
