@@ -50,6 +50,19 @@
             ]
           },
           {
+            "group": "Data",
+            "icon": "database",
+            "pages": [
+              "marketplace/data/urn",
+              "marketplace/data/items",
+              "marketplace/data/pokemon",
+              "marketplace/data/lorcana",
+              "marketplace/data/riftbound",
+              "marketplace/data/star-wars-unlimited",
+              "marketplace/data/magic-the-gathering"
+            ]
+          },
+          {
             "group": "Listings",
             "icon": "list",
             "pages": [
@@ -454,6 +467,11 @@
           "anchor": "Documentation",
           "href": "https://docs.managem.co.uk",
           "icon": "book"
+        },
+        {
+          "anchor": "Connect AI",
+          "href": "/mcp",
+          "icon": "bot"
         }
       ]
     }

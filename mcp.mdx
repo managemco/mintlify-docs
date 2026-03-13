@@ -1,0 +1,89 @@
+---
+title: "Connect AI"
+description: "Connect Managem documentation and API endpoints to your AI tools"
+---
+
+Use the Managem MCP server to let your AI assistant search the latest Managem docs and API references while it answers.
+
+## MCP server URL
+
+```text
+https://docs.managem.co.uk/mcp
+```
+
+This endpoint is hosted by Mintlify and exposes a search tool over indexed docs content.
+
+## Add to your AI tool
+
+<Tabs>
+  <Tab title="Claude">
+    1. Open [Claude Connectors](https://claude.ai/settings/connectors).
+    2. Click **Add custom connector**.
+    3. Enter:
+       - **Name**: `Managem`
+       - **URL**: `https://docs.managem.co.uk/mcp`
+    4. Click **Add**.
+    5. In chat, click the plus icon and select **Managem**.
+  </Tab>
+
+  <Tab title="Claude Code">
+    Run:
+
+    ```bash
+    claude mcp add --transport http Managem https://docs.managem.co.uk/mcp
+    ```
+
+    Verify:
+
+    ```bash
+    claude mcp list
+    ```
+  </Tab>
+
+  <Tab title="Cursor">
+    Option 1 (fastest): On any docs page, open the contextual menu and click **Connect to Cursor**.
+
+    Option 2 (manual):
+
+    1. Open the command palette (`Cmd` + `Shift` + `P` on macOS or `Ctrl` + `Shift` + `P` on Windows/Linux).
+    2. Search for `Open MCP settings`.
+    3. Choose **Add custom MCP** and update `mcp.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "Managem": {
+          "url": "https://docs.managem.co.uk/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="VS Code">
+    Option 1 (fastest): On any docs page, open the contextual menu and click **Connect to VS Code**.
+
+    Option 2 (manual): Create `.vscode/mcp.json` in your project:
+
+    ```json
+    {
+      "servers": {
+        "Managem": {
+          "type": "http",
+          "url": "https://docs.managem.co.uk/mcp"
+        }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Prompt tips
+
+- Ask specific questions, for example: `Using the Managem docs, how do I create a seller import?`
+- Mention endpoints or feature areas (`/seller/listings`, imports, webhooks) to improve tool selection.
+- If you use multiple MCP servers, keep only relevant servers connected for the current task.
+
+<Note>
+  If your AI tool supports direct MCP install buttons, you can also use the contextual menu at the top of the docs pages to copy or connect quickly.
+</Note>

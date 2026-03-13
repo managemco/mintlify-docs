@@ -1,0 +1,254 @@
+---
+title: Riftbound
+description: Riftbound specific metadata fields for cards in our catalog
+---
+
+Each card in our catalog stores metadata properties extracted from the card, specific to the game.
+
+This metadata is stored inside the item data returned from our APIs. You can read more about our item structure in **[Item Structure](/marketplace/data/types)**.
+
+---
+
+**For Riftbound cards, we store the following metadata fields:**
+
+<ResponseField name="Type" type="string[]">
+  Core type labels for the card.
+</ResponseField>
+
+<ResponseField name="Domain" type="string">
+  Domain alignment shown for the card.
+</ResponseField>
+
+<ResponseField name="Ability" type="string">
+  Main ability or effect text.
+</ResponseField>
+
+<ResponseField name="Code" type="string">
+  Public card code identifier.
+</ResponseField>
+
+<ResponseField name="Orientation" type="string">
+  Card orientation label.
+</ResponseField>
+
+<ResponseField name="Energy" type="string" post={["optional"]}>
+  Energy value or category, when present.
+</ResponseField>
+
+<ResponseField name="Might" type="string" post={["optional"]}>
+  Might value or category, when present.
+</ResponseField>
+
+<ResponseField name="Power" type="string" post={["optional"]}>
+  Power value or category, when present.
+</ResponseField>
+
+<ResponseField name="Tags" type="string[]" post={["optional"]}>
+  Additional tag keywords for the card.
+</ResponseField>
+
+<ResponseField name="SuperType" type="string[]" post={["optional"]}>
+  Supertypes associated with the card.
+</ResponseField>
+
+<ResponseExample>
+```jsonc Jinx
+{
+  // additional item properties omitted
+  "urn": "urn:managem:riftbound:set/origins/card/30",
+  "metadata": [
+    {
+      "name": "Type",
+      "detail": [
+        "Unit"
+      ]
+    },
+    {
+      "name": "Domain",
+      "detail": "Fury"
+    },
+    {
+      "name": "Ability",
+      "value": "[Accelerate] (You may pay :rb_energy_1::rb_rune_fury: as an additional cost to have me enter ready.)[Assault 2] (+2 :rb_might: while I'm an attacker.)When you play me, discard 2."
+    },
+    {
+      "name": "Code",
+      "value": "OGN-030/298"
+    },
+    {
+      "name": "Orientation",
+      "value": "portrait"
+    },
+    {
+      "name": "Energy",
+      "value": "3"
+    },
+    {
+      "name": "Might",
+      "value": "4"
+    },
+    {
+      "name": "Power",
+      "value": "1"
+    },
+    {
+      "name": "Tags",
+      "detail": [
+        "Jinx",
+        "Zaun"
+      ]
+    },
+    {
+      "name": "SuperType",
+      "detail": [
+        "Champion"
+      ]
+    }
+  ]
+}
+```
+
+```jsonc Ahri
+{
+  // additional item properties omitted
+  "urn": "urn:managem:riftbound:set/origins/card/119",
+  "metadata": [
+    {
+      "name": "Type",
+      "detail": ["Unit"],
+    },
+    {
+      "name": "Domain",
+      "detail": "Mind",
+    },
+    {
+      "name": "Ability",
+      "value": "When I attack or defend, give an enemy unit here -2 :rb_might: this turn, to a minimum of 1 :rb_might:.",
+    },
+    {
+      "name": "Code",
+      "value": "OGN-119a/298",
+    },
+    {
+      "name": "Orientation",
+      "value": "portrait",
+    },
+    {
+      "name": "Energy",
+      "value": "3",
+    },
+    {
+      "name": "Might",
+      "value": "3",
+    },
+    {
+      "name": "Power",
+      "value": "1",
+    },
+    {
+      "name": "Tags",
+      "detail": ["Ahri", "Ionia"],
+    },
+    {
+      "name": "SuperType",
+      "detail": ["Champion"],
+    },
+  ],
+}
+```
+
+```jsonc Garen
+{
+  // additional item properties omitted
+  "urn": "urn:managem:riftbound:set/proving-grounds/card/13",
+  "metadata": [
+    {
+      "name": "Type",
+      "detail": ["Unit"],
+    },
+    {
+      "name": "Domain",
+      "detail": "Order",
+    },
+    {
+      "name": "Ability",
+      "value": "Other friendly units have +1 :rb_might: here.",
+    },
+    {
+      "name": "Code",
+      "value": "OGS-013/024",
+    },
+    {
+      "name": "Orientation",
+      "value": "portrait",
+    },
+    {
+      "name": "Energy",
+      "value": "6",
+    },
+    {
+      "name": "Might",
+      "value": "5",
+    },
+    {
+      "name": "Power",
+      "value": "1",
+    },
+    {
+      "name": "Tags",
+      "detail": ["Elite", "Garen", "Demacia"],
+    },
+    {
+      "name": "SuperType",
+      "detail": ["Champion"],
+    },
+  ],
+}
+```
+
+```jsonc Lux
+{
+  // additional item properties omitted
+  "urn": "urn:managem:riftbound:set/proving-grounds/card/14",
+  "metadata": [
+    {
+      "name": "Type",
+      "detail": ["Unit"],
+    },
+    {
+      "name": "Domain",
+      "detail": "Order",
+    },
+    {
+      "name": "Ability",
+      "value": ":rb_exhaust:: [Reaction] — [Add] :rb_energy_2:. Use only to play spells. (Abilities that add resources can't be reacted to.)",
+    },
+    {
+      "name": "Code",
+      "value": "OGS-014/024",
+    },
+    {
+      "name": "Orientation",
+      "value": "portrait",
+    },
+    {
+      "name": "Energy",
+      "value": "4",
+    },
+    {
+      "name": "Might",
+      "value": "2",
+    },
+    {
+      "name": "Tags",
+      "detail": ["Lux", "Demacia"],
+    },
+    {
+      "name": "SuperType",
+      "detail": ["Champion"],
+    },
+  ],
+}
+```
+
+</ResponseExample>

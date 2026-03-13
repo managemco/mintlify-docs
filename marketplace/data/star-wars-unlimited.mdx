@@ -1,0 +1,196 @@
+---
+title: Star Wars Unlimited
+description: Star Wars Unlimited specific metadata fields for cards in our catalog
+---
+
+Each card in our catalog stores metadata properties extracted from the card, specific to the game.
+
+This metadata is stored inside the item data returned from our APIs. You can read more about our item structure in **[Item Structure](/marketplace/data/types)**.
+
+---
+
+**For SWU cards, we store the following metadata fields:**
+
+<ResponseField name="Text" type="string" post={["optional"]}>
+  The card's main effect or rules text.
+</ResponseField>
+
+<ResponseField name="Cost" type="string" post={["optional"]}>
+  Resource cost to play the card.
+</ResponseField>
+
+<ResponseField name="HP" type="string" post={["optional"]}>
+  Hit points value shown on the card.
+</ResponseField>
+
+<ResponseField name="Power" type="string" post={["optional"]}>
+  Power value shown on the card.
+</ResponseField>
+
+<ResponseField name="Traits" type="string[]" post={["optional"]}>
+  Trait keywords associated with the card.
+</ResponseField>
+
+<ResponseField name="Arenas" type="string[]" post={["optional"]}>
+  Arena categories where the card can be used.
+</ResponseField>
+
+<ResponseField name="Aspects" type="string[]" post={["optional"]}>
+  Aspect affiliations tied to the card.
+</ResponseField>
+
+<ResponseExample>
+```jsonc Darth Vader
+{
+  // additional item properties omitted
+  "urn": "urn:managem:star-wars-unlimited:set/2025-promo/card/103",
+  "metadata": [
+    {
+      "name": "Text",
+      "value": "Ambush\n\nWhen Played: Search the top 10 cards of your deck for any number of [Villainy] units with combined cost 3 or less and play each of them for free."
+    },
+    {
+      "name": "Cost",
+      "value": "7"
+    },
+    {
+      "name": "HP",
+      "value": "7"
+    },
+    {
+      "name": "Power",
+      "value": "5"
+    },
+    {
+      "name": "Traits",
+      "detail": [
+        "Force",
+        "Imperial",
+        "Sith"
+      ]
+    },
+    {
+      "name": "Arenas",
+      "detail": [
+        "Ground"
+      ]
+    },
+    {
+      "name": "Aspects",
+      "detail": [
+        "Command",
+        "Villainy"
+      ]
+    }
+  ]
+}
+```
+
+```jsonc Luke Skywalker
+{
+  // additional item properties omitted
+  "urn": "urn:managem:star-wars-unlimited:set/2025-promo/card/73",
+  "metadata": [
+    {
+      "name": "Text",
+      "value": "Action [1 resource, exhaust]: Give a Shield token to a [Heroism] unit you played this phase. ",
+    },
+    {
+      "name": "Cost",
+      "value": "6",
+    },
+    {
+      "name": "HP",
+      "value": "7",
+    },
+    {
+      "name": "Power",
+      "value": "4",
+    },
+    {
+      "name": "Traits",
+      "detail": ["Force", "Rebel"],
+    },
+    {
+      "name": "Arenas",
+      "detail": ["Ground"],
+    },
+    {
+      "name": "Aspects",
+      "detail": ["Vigilance", "Heroism"],
+    },
+  ],
+}
+```
+
+```jsonc R2-D2
+{
+  // additional item properties omitted
+  "urn": "urn:managem:star-wars-unlimited:set/2025-convention-exclusive/card/3",
+  "metadata": [
+    {
+      "name": "Cost",
+      "value": "1",
+    },
+    {
+      "name": "HP",
+      "value": "4",
+    },
+    {
+      "name": "Power",
+      "value": "1",
+    },
+    {
+      "name": "Traits",
+      "detail": ["Rebel", "Droid", "Pilot"],
+    },
+    {
+      "name": "Arenas",
+      "detail": ["Ground"],
+    },
+    {
+      "name": "Aspects",
+      "detail": ["Heroism"],
+    },
+  ],
+}
+```
+
+```jsonc C-3PO
+{
+  // additional item properties omitted
+  "urn": "urn:managem:star-wars-unlimited:set/2025-convention-exclusive/card/5",
+  "metadata": [
+    {
+      "name": "Text",
+      "value": "Action [exhaust, return this unit to its owner’s hand]: Give a unit +2/+2 for this phase.",
+    },
+    {
+      "name": "Cost",
+      "value": "1",
+    },
+    {
+      "name": "HP",
+      "value": "3",
+    },
+    {
+      "name": "Power",
+      "value": "1",
+    },
+    {
+      "name": "Traits",
+      "detail": ["Republic", "Droid"],
+    },
+    {
+      "name": "Arenas",
+      "detail": ["Ground"],
+    },
+    {
+      "name": "Aspects",
+      "detail": ["Command", "Heroism"],
+    },
+  ],
+}
+```
+
+</ResponseExample>

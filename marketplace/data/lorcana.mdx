@@ -1,0 +1,418 @@
+---
+title: Lorcana
+description: Lorcana specific metadata fields for cards in our catalog
+---
+
+Each card in our catalog stores metadata properties extracted from the card, specific to the game.
+
+This metadata is stored inside the item data returned from our APIs. You can read more about our item structure in **[Item Structure](/marketplace/data/types)**.
+
+---
+
+**For Lorcana cards, we store the following metadata fields:**
+
+<ResponseField name="Clarifications" type="string[]" post={["optional"]}>
+  Extra clarification notes for card text.
+</ResponseField>
+
+<ResponseField name="Abilities" type="object[]" post={["optional"]}>
+  Ability details for the card.
+</ResponseField>
+
+<ResponseField name="Effects" type="object[]" post={["optional"]}>
+  Effect details related to the card.
+</ResponseField>
+
+<ResponseField name="Code" type="string">
+  The card's set/code identifier.
+</ResponseField>
+
+<ResponseField name="Color" type="string">
+  Primary ink color for the card.
+</ResponseField>
+
+<ResponseField name="Colors" type="string[]" post={["optional"]}>
+  All ink colors associated with the card.
+</ResponseField>
+
+<ResponseField name="Cost" type="number">
+  Ink cost to play the card.
+</ResponseField>
+
+<ResponseField name="Lore" type="number" post={["optional"]}>
+  Lore value the card can gain.
+</ResponseField>
+
+<ResponseField name="Move Cost" type="number" post={["optional"]}>
+  Cost to move to a location, when applicable.
+</ResponseField>
+
+<ResponseField name="KeyworldAbilities" type="string[]" post={["optional"]}>
+  Keyword abilities associated with the card.
+</ResponseField>
+
+<ResponseField name="Inkwell" type="string" post={["optional"]}>
+  Whether the card can be placed into the inkwell.
+</ResponseField>
+
+<ResponseField name="Willpower" type="number" post={["optional"]}>
+  Willpower value shown on the card.
+</ResponseField>
+
+<ResponseField name="Strength" type="number" post={["optional"]}>
+  Strength value shown on the card.
+</ResponseField>
+
+<ResponseField name="Story" type="string">
+  Story grouping associated with the card.
+</ResponseField>
+
+<ResponseField name="MaxCopiesInDeck" type="number">
+  Maximum allowed copies in a deck.
+</ResponseField>
+
+<ResponseField name="Subtypes" type="string[]" post={["optional"]}>
+  Subtype labels for the card.
+</ResponseField>
+
+<ResponseField name="Type" type="string">
+  The card's type classification.
+</ResponseField>
+
+<ResponseExample>
+```jsonc Maleficent
+{
+  // additional item properties omitted
+  "urn": "urn:managem:lorcana:set/the-first-chapter/card/113",
+  "metadata": [
+    {
+      "name": "Clarifications"
+    },
+    {
+      "name": "Abilities",
+      "detail": [
+        {
+          "name": "DRAGON FIRE",
+          "type": "triggered",
+          "effect": "When you play this character, you may banish chosen character.",
+          "fullText": "DRAGON FIRE When you play this character,\nyou may banish chosen character."
+        }
+      ]
+    },
+    {
+      "name": "Effects"
+    },
+    {
+      "name": "Code",
+      "value": "1P"
+    },
+    {
+      "name": "Color",
+      "value": "Ruby"
+    },
+    {
+      "name": "Colors"
+    },
+    {
+      "name": "Cost",
+      "value": 9
+    },
+    {
+      "name": "Lore",
+      "value": 2
+    },
+    {
+      "name": "Move Cost"
+    },
+    {
+      "name": "KeyworldAbilities"
+    },
+    {
+      "name": "Inkwell",
+      "value": "Yes"
+    },
+    {
+      "name": "Willpower",
+      "value": 5
+    },
+    {
+      "name": "Strength",
+      "value": 7
+    },
+    {
+      "name": "Story",
+      "value": "Sleeping Beauty"
+    },
+    {
+      "name": "MaxCopiesInDeck",
+      "value": 4
+    },
+    {
+      "name": "Subtypes",
+      "detail": [
+        "Storyborn",
+        "Villain",
+        "Dragon"
+      ]
+    },
+    {
+      "name": "Type",
+      "value": "Character"
+    }
+  ]
+}
+```
+
+```jsonc Mickey Mouse
+{
+  // additional item properties omitted
+  "urn": "urn:managem:lorcana:set/the-first-chapter/card/186",
+  "metadata": [
+    {
+      "name": "Clarifications",
+    },
+    {
+      "name": "Abilities",
+      "detail": [
+        {
+          "type": "keyword",
+          "keyword": "Bodyguard",
+          "fullText": "Bodyguard (This character may enter play exerted.\nAn opposing character who challenges one of\nyour characters must choose one with Bodyguard\nif able.)",
+          "reminderText": "This character may enter play exerted. An opposing character who challenges one of your characters must choose one with Bodyguard if able.",
+        },
+        {
+          "name": "ALL FOR ONE",
+          "type": "static",
+          "effect": "Your other Musketeer characters get +1 ¤.",
+          "fullText": "ALL FOR ONE Your other Musketeer characters\nget +1 ¤.",
+        },
+      ],
+    },
+    {
+      "name": "Effects",
+    },
+    {
+      "name": "Code",
+      "value": "30",
+    },
+    {
+      "name": "Color",
+      "value": "Steel",
+    },
+    {
+      "name": "Colors",
+    },
+    {
+      "name": "Cost",
+      "value": 6,
+    },
+    {
+      "name": "Lore",
+      "value": 2,
+    },
+    {
+      "name": "Move Cost",
+    },
+    {
+      "name": "KeyworldAbilities",
+      "detail": ["Bodyguard"],
+    },
+    {
+      "name": "Inkwell",
+      "value": "Yes",
+    },
+    {
+      "name": "Willpower",
+      "value": 7,
+    },
+    {
+      "name": "Strength",
+      "value": 2,
+    },
+    {
+      "name": "Story",
+      "value": "The Three Musketeers",
+    },
+    {
+      "name": "MaxCopiesInDeck",
+      "value": 4,
+    },
+    {
+      "name": "Subtypes",
+      "detail": ["Dreamborn", "Hero", "Musketeer"],
+    },
+    {
+      "name": "Type",
+      "value": "Character",
+    },
+  ],
+}
+```
+
+```jsonc Stitch
+{
+  // additional item properties omitted
+  "urn": "urn:managem:lorcana:set/the-first-chapter/card/206",
+  "metadata": [
+    {
+      "name": "Clarifications",
+    },
+    {
+      "name": "Abilities",
+      "detail": [
+        {
+          "name": "OHANA",
+          "type": "triggered",
+          "effect": "When you play this character, if you have 2 or more other characters in play, you may draw 2 cards.",
+          "fullText": "OHANA When you play this character, if you\nhave 2 or more other characters in play, you may\ndraw 2 cards.",
+        },
+      ],
+    },
+    {
+      "name": "Effects",
+    },
+    {
+      "name": "Code",
+      "value": "3k",
+    },
+    {
+      "name": "Color",
+      "value": "Amber",
+    },
+    {
+      "name": "Colors",
+    },
+    {
+      "name": "Cost",
+      "value": 7,
+    },
+    {
+      "name": "Lore",
+      "value": 2,
+    },
+    {
+      "name": "Move Cost",
+    },
+    {
+      "name": "KeyworldAbilities",
+    },
+    {
+      "name": "Inkwell",
+      "value": "Yes",
+    },
+    {
+      "name": "Willpower",
+      "value": 8,
+    },
+    {
+      "name": "Strength",
+      "value": 4,
+    },
+    {
+      "name": "Story",
+      "value": "Lilo & Stitch",
+    },
+    {
+      "name": "MaxCopiesInDeck",
+      "value": 4,
+    },
+    {
+      "name": "Subtypes",
+      "detail": ["Dreamborn", "Hero", "Alien"],
+    },
+    {
+      "name": "Type",
+      "value": "Character",
+    },
+  ],
+}
+```
+
+```jsonc Elsa
+{
+  "urn": "urn:managem:lorcana:set/the-first-chapter/card/207",
+  "metadata": [
+    {
+      "name": "Clarifications",
+    },
+    {
+      "name": "Abilities",
+      "detail": [
+        {
+          "type": "keyword",
+          "keyword": "Shift",
+          "fullText": "Shift 6 (You may pay 6 ⬡ to play this on top of one of\nyour characters named Elsa.)",
+          "keywordValue": "6",
+          "reminderText": "You may pay 6 ⬡ to play this on top of one of your characters named Elsa.",
+          "keywordValueNumber": 6,
+        },
+        {
+          "name": "DEEP FREEZE",
+          "type": "triggered",
+          "effect": "When you play this character, exert up to 2 chosen characters. They can't ready at the start of their next turn.",
+          "fullText": "DEEP FREEZE When you play this character, exert up\nto 2 chosen characters. They can't ready at the start of\ntheir next turn.",
+        },
+      ],
+    },
+    {
+      "name": "Effects",
+    },
+    {
+      "name": "Code",
+      "value": "3l",
+    },
+    {
+      "name": "Color",
+      "value": "Amethyst",
+    },
+    {
+      "name": "Colors",
+    },
+    {
+      "name": "Cost",
+      "value": 8,
+    },
+    {
+      "name": "Lore",
+      "value": 3,
+    },
+    {
+      "name": "Move Cost",
+    },
+    {
+      "name": "KeyworldAbilities",
+      "detail": ["Shift"],
+    },
+    {
+      "name": "Inkwell",
+      "value": "No",
+    },
+    {
+      "name": "Willpower",
+      "value": 6,
+    },
+    {
+      "name": "Strength",
+      "value": 4,
+    },
+    {
+      "name": "Story",
+      "value": "Frozen",
+    },
+    {
+      "name": "MaxCopiesInDeck",
+      "value": 4,
+    },
+    {
+      "name": "Subtypes",
+      "detail": ["Floodborn", "Hero", "Queen", "Sorcerer"],
+    },
+    {
+      "name": "Type",
+      "value": "Character",
+    },
+  ],
+}
+```
+
+</ResponseExample>

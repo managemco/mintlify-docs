@@ -1,0 +1,556 @@
+---
+title: Items
+description: Our unified item schema represents both singles and sealed products, across all our games
+---
+
+The Managem catalog represents both single cards and sealed products as items with a unified schema.
+
+This allows our APIs to return consistent data for all types of listings on the marketplace, while also providing the flexibility to include game-specific card details inside the `metadata` property when relevant.
+
+<ResponseField name="Item" type="Card | Product">
+  Unified item type used for indexed documents and exports. The properties displayed below are common to be `Card` and `Product` types.
+  <Expandable title="properties">
+    <ResponseField name="type" type='"card" | "product"'>
+      Discriminator that determines whether Card or Product fields apply.
+    </ResponseField>
+
+    <ResponseField name="set" type="Set">
+      Set information for this item.
+    </ResponseField>
+
+    <ResponseField name="series" type="Series">
+      Series information for this item.
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+---
+
+## Card
+
+The card type represents a single collectible card on the marketplace. Each card item includes a `metadata` property that contains game-specific attributes extracted from the card, such as mana cost for Magic: The Gathering or energy type for Pokemon.
+
+<ResponseField name="Card" type="object">
+  A single collectible card listing.
+  <Expandable title="properties">
+    <ResponseField name="urn" type="URN">
+      Unique identifier for this card.
+    </ResponseField>
+
+    <ResponseField name="type" type='"card"'>
+      Indicates this item is a single card.
+    </ResponseField>
+
+    <ResponseField name="game" type="Game">
+      Trading card game this card belongs to.
+
+      More information about the [Game](/marketplace/data/types#param-game) type
+    </ResponseField>
+
+    <ResponseField name="title" type="string">
+      Display title shown to users.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Name of the card.
+    </ResponseField>
+
+    <ResponseField name="number" type="string">
+      Collector number shown for the card.
+    </ResponseField>
+
+    <ResponseField name="description" type="string" post={['optional']}>
+      Short flavor or descriptive text for the card, when available.
+    </ResponseField>
+
+    <ResponseField name="images" type="Image[]">
+      Image list for this card.
+
+      More information about the [Image](/marketplace/data/types#param-image) type
+    </ResponseField>
+
+    <ResponseField name="references" type="References">
+      External reference IDs for this card on major platforms.
+    </ResponseField>
+
+    <ResponseField name="rarity" type="string">
+      Rarity label for the card.
+    </ResponseField>
+
+    <ResponseField name="alternatives" type="string[]">
+      Available finishes or print variants for this card.
+    </ResponseField>
+
+    <ResponseField name="metadata" type="Metadata">
+      Additional card details that vary by game. Metadata fields appear when relevant for a specific card.
+      <Expandable title="entry shape">
+        <ResponseField name="name" type="string">
+          The metadata field name.
+        </ResponseField>
+
+        <ResponseField name="value" type="string | string[] | number | number[]" post={['optional']}>
+          A direct value for the field.
+        </ResponseField>
+
+        <ResponseField name="detail" type="object | object[]" post={['optional']}>
+          Additional structured detail for the field.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+---
+
+## Product
+
+The product type represents a sealed product on the marketplace, such as a booster pack, box, or collection. Product items include a `contents` property that breaks down what is included in the sealed product, such as the number of booster packs or specific promo cards.
+
+<ResponseField name="Product" type="object">
+  A sealed product listing such as a pack, box, tin, deck, or case.
+  <Expandable title="properties">
+    <ResponseField name="urn" type="URN">
+      Unique identifier for this product.
+    </ResponseField>
+
+    <ResponseField name="type" type='"product"'>
+      Indicates this item is a sealed product.
+    </ResponseField>
+
+    <ResponseField name="classification" type="string">
+      Product category, such as Box, Pack, Tin, Deck, Collection, Case, or Miscellaneous.
+    </ResponseField>
+
+    <ResponseField name="count" type="number">
+      Number of identical product units included in this listing.
+    </ResponseField>
+
+    <ResponseField name="game" type="Game">
+      Trading card game this product belongs to.
+
+      More information about the [Game](/marketplace/data/types#param-game) type
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Short name of the product.
+    </ResponseField>
+
+    <ResponseField name="title" type="string">
+      Display title shown to users.
+    </ResponseField>
+
+    <ResponseField name="description" type="string" post={['optional']}>
+      Short summary of the product, when available.
+    </ResponseField>
+
+    <ResponseField name="contents" type="array">
+      Breakdown of what the sealed product includes.
+      <Expandable title="properties">
+        <ResponseField name="description" type="string">
+          Name of an included item.
+        </ResponseField>
+
+        <ResponseField name="quantity" type="integer">
+          How many of this included item are in the product.
+        </ResponseField>
+
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="images" type="Image[]">
+      Image list for this product.
+
+      More information about the [Image](/marketplace/data/types#param-image) type
+    </ResponseField>
+
+    <ResponseField name="references" type="References">
+      External reference IDs for this product on major platforms.
+
+      More information about the [References](/marketplace/data/types#param-references) type
+    </ResponseField>
+
+    <ResponseField name="metadata" type="Metadata">
+      Additional attributes for this product.
+
+      More information about the [Metadata](/marketplace/data/types#param-metadata) type
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="URN" type="string">
+  Unique identifier string for a catalog resource.
+</ResponseField>
+
+<ResponseField name="Game" type="enum">
+  The trading card game this item belongs to.
+  <Expandable title="allowed values">
+    <ResponseField name="Pokemon" type="string">
+      Pokemon Trading Card Game
+    </ResponseField>
+
+    <ResponseField name="Magic: The Gathering" type="string">
+      Magic: The Gathering
+    </ResponseField>
+
+    <ResponseField name="Star Wars Unlimited" type="string">
+      Star Wars Unlimited
+    </ResponseField>
+
+    <ResponseField name="Lorcana" type="string">
+      Disney Lorcana
+    </ResponseField>
+
+    <ResponseField name="Riftbound" type="string">
+      Riftbound
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="Image" type="object">
+  Image information for a card, product, or set symbol.
+  <Expandable title="properties">
+    <ResponseField name="urn" type="URN">
+      Unique identifier for this image.
+    </ResponseField>
+
+    <ResponseField name="illustrator" type="string" post={['optional']}>
+      Artist credit for this image, when available.
+    </ResponseField>
+
+    <ResponseField name="orientation" type='"portrait" | "landscape"'>
+      How this image is oriented for display.
+    </ResponseField>
+
+    <ResponseField name="url" type="string (URL)">
+      Direct URL where this image can be viewed.
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="Metadata" type="array">
+  Additional attributes that provide game-specific item details.
+  <Expandable title="Entries">
+    <ResponseField name="MetadataEntry" type="object">
+    One named attribute used for game-specific details.
+    <Expandable title="properties">
+      <ResponseField name="name" type="string">
+        Label for this attribute.
+      </ResponseField>
+
+      <ResponseField name="value" type="string | string[] | number | number[]" post={['optional']}>
+        Main attribute value, such as text, a number, or a list of values.
+      </ResponseField>
+
+      <ResponseField name="detail" type="unknown | unknown[]" post={['optional']}>
+        Additional structured detail for this attribute, when needed.
+      </ResponseField>
+
+    </Expandable>
+
+  </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="References" type="object">
+  External platform IDs for item matching and linking.
+  <Expandable title="properties">
+    <ResponseField name="cardtrader" type="string" post={['optional']}>
+      CardTrader reference ID for this item, when available.
+    </ResponseField>
+
+    <ResponseField name="cardmarket" type="string" post={['optional']}>
+      Cardmarket reference ID for this item, when available.
+    </ResponseField>
+
+    <ResponseField name="scryfall" type="string" post={['optional']}>
+      Scryfall reference ID for this item, when available.
+    </ResponseField>
+
+    <ResponseField name="tcgplayer" type="string" post={['optional']}>
+      TCGplayer reference ID for this item, when available.
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="Series" type="object">
+  A named release series for sets and items.
+  <Expandable title="properties">
+    <ResponseField name="urn" type="URN">
+      Unique identifier for this series.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Display name of this series.
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="Set" type="object">
+  Set-level details used by cards and products.
+  <Expandable title="properties">
+    <ResponseField name="urn" type="URN">
+      Unique identifier for this set.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Display name of this set.
+    </ResponseField>
+
+    <ResponseField name="symbol" type="object" post={["optional"]}>
+      Set symbol artwork, when available.
+      <Expandable title="properties">
+        <ResponseField name="url" type="string (URL)">
+          Direct URL for the set symbol image.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="counts" type="object">
+      Card totals for the set.
+      <Expandable title="properties">
+        <ResponseField name="printed" type="number" post={['optional']}>
+          Officially printed card count for this set, when available.
+        </ResponseField>
+
+        <ResponseField name="total" type="number" post={['optional']}>
+          Total number of cataloged cards in this set, when available.
+        </ResponseField>
+
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="released" type="string (ISO 8601)" post={['optional']}>
+      Set release date in ISO 8601 format, when available.
+    </ResponseField>
+
+    <ResponseField name="references" type="string[]">
+      Known set codes or aliases for matching and lookup.
+    </ResponseField>
+
+  </Expandable>
+</ResponseField>
+
+<RequestExample>
+```json Blooming Waters Collection
+{
+  "urn": "urn:managem:pokemon:set/miscellaneous/product/blooming-waters-premium-collection-660d2c4b",
+  "game": "Pokemon",
+  "name": "Blooming Waters Premium Collection",
+  "type": "product",
+  "count": 1,
+  "title": "Miscellaneous: Blooming Waters Premium Collection",
+  "images": [
+    {
+      "url": "https://tcgplayer-cdn.tcgplayer.com/product/609597_in_1000x1000.jpg",
+      "urn": "urn:managem:pokemon:set/miscellaneous/product/blooming-waters-premium-collection-660d2c4b/image/0",
+      "orientation": "portrait"
+    }
+  ],
+  "contents": [
+    {
+      "quantity": 1,
+      "description": "Venusaur ex"
+    },
+    {
+      "quantity": 1,
+      "description": "Blastoise ex"
+    },
+    {
+      "quantity": 1,
+      "description": "Bulbasaur"
+    },
+    {
+      "quantity": 1,
+      "description": "Squirtle"
+    },
+    {
+      "quantity": 1,
+      "description": "Blastoise ex (Oversized)"
+    },
+    {
+      "quantity": 12,
+      "description": "Pokémon TCG Booster Packs"
+    },
+    {
+      "quantity": 1,
+      "description": "Pokémon TCG Live Code Card"
+    }
+  ],
+  "metadata": [],
+  "references": {
+    "tcgplayer": "609597"
+  },
+  "description": "Build your Pokémon TCG deck with powerful Pokémon ex and a collection of Pokémon TCG booster packs.",
+  "classification": "Collection"
+}
+```
+
+```json Floodborn Booster Box
+{
+  "urn": "urn:managem:lorcana:set/rise-of-the-floodborn/product/disney-lorcana-rise-of-the-floodborn-booster-box-4c3d5e2f",
+  "game": "Lorcana",
+  "name": "Disney Lorcana: Rise of the Floodborn Booster Box",
+  "type": "product",
+  "count": 1,
+  "title": "Rise of the Floodborn: Disney Lorcana: Rise of the Floodborn Booster Box",
+  "images": [
+    {
+      "url": "https://tcgplayer-cdn.tcgplayer.com/product/516276_in_1000x1000.jpg",
+      "urn": "urn:managem:lorcana:set/rise-of-the-floodborn/product/disney-lorcana-rise-of-the-floodborn-booster-box-4c3d5e2f/image/0",
+      "orientation": "portrait"
+    }
+  ],
+  "contents": [
+    {
+      "quantity": 36,
+      "description": "Booster Pack"
+    }
+  ],
+  "metadata": [],
+  "references": {
+    "tcgplayer": "516276"
+  },
+  "description": "A booster box containing booster packs from the Rise of the Floodborn set.",
+  "classification": "Box"
+}
+```
+
+```json Surging Sparks 3 Pack Blister
+{
+  "urn": "urn:managem:pokemon:set/surging-sparks/product/surging-sparks-3-pack-blisters-zapdos-ed2e6a46",
+  "game": "Pokemon",
+  "name": "Surging Sparks 3 Pack Blister [Zapdos]",
+  "type": "product",
+  "count": 1,
+  "title": "Surging Sparks: Surging Sparks 3 Pack Blister [Zapdos]",
+  "images": [
+    {
+      "url": "https://tcgplayer-cdn.tcgplayer.com/product/565634_in_1000x1000.jpg",
+      "urn": "urn:managem:pokemon:set/surging-sparks/product/surging-sparks-3-pack-blisters-zapdos-ed2e6a46/image/0",
+      "orientation": "portrait"
+    }
+  ],
+  "contents": [
+    {
+      "quantity": 3,
+      "description": "Surging Sparks Booster Pack"
+    },
+    {
+      "quantity": 1,
+      "description": "Zapdos Promo Card"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "UPC",
+      "value": "0820650859380"
+    }
+  ],
+  "references": {
+    "tcgplayer": "565634"
+  },
+  "description": "Get ready for a lightning-fast battle with the Surging Sparks 3 Pack Blister, featuring three booster packs and a special foil promotional card of Zapdos!",
+  "classification": "Pack"
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+```json Mega Charizard Y Ex
+{
+  "urn": "urn:managem:pokemon:set/ascended-heroes/card/294",
+  "game": "Pokemon",
+  "name": "Mega Charizard Y ex",
+  "type": "card",
+  "title": "Ascended Heroes: Mega Charizard Y ex",
+  "images": [
+    {
+      "url": "https://images.scrydex.com/pokemon/me2pt5-294/large",
+      "urn": "urn:managem:pokemon:set/ascended-heroes/card/294/image/0",
+      "illustrator": "aky CG Works",
+      "orientation": "portrait"
+    }
+  ],
+  "number": "294",
+  "rarity": "Mega Hyper Rare",
+  "metadata": [
+    {
+      "name": "Category",
+      "value": "Pokémon"
+    },
+    {
+      "name": "Stage",
+      "value": "Stage 2"
+    },
+    {
+      "name": "Pokedex",
+      "value": 6
+    },
+    {
+      "name": "EvolvesFrom",
+      "value": "Charmeleon"
+    },
+    {
+      "name": "Types",
+      "value": [
+        "Fire"
+      ]
+    },
+    {
+      "name": "Attacks",
+      "detail": [
+        {
+          "cost": [
+            "Fire",
+            "Fire",
+            "Colorless"
+          ],
+          "name": "Explosion Y",
+          "text": "Discard 3 Energy from this Pokémon, and this attack does 280 damage to 1 of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)",
+          "damage": "",
+          "convertedEnergyCost": 3
+        }
+      ]
+    },
+    {
+      "name": "Weaknesses",
+      "detail": [
+        {
+          "type": "Water",
+          "value": "×2"
+        }
+      ]
+    },
+    {
+      "name": "Rules",
+      "detail": [
+        "Pokémon ex rule: When your Pokémon ex is Knocked Out, your opponent takes 2 Prize cards.",
+        "Mega Evolution ex Rule: When your Mega Evolution Pokémon ex is Knocked Out, your opponent takes 3 Prize cards."
+      ]
+    },
+    {
+      "name": "Retreat",
+      "value": [
+        "Colorless"
+      ]
+    },
+    {
+      "name": "HP",
+      "value": "360"
+    }
+  ],
+  "references": {
+    "tcgplayer": "676106"
+  },
+  "alternatives": []
+}
+```
+</ResponseExample>

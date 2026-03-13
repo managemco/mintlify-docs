@@ -1,0 +1,347 @@
+---
+title: Pokemon
+description: Specific metadata fields for Pokemon cards in our catalog
+---
+
+Each card in our catalog stores metadata properties extracted from the card, specific to the game.
+
+This metadata is stored inside the item data returned from our APIs. You can read more about our item structure in **[Item Structure](/marketplace/data/types)**.
+
+---
+
+**For Pokemon cards, we store the following metadata fields:**
+
+<ResponseField name="Category" type="string">
+  The card category, such as Pokemon, Trainer, or Energy.
+</ResponseField>
+
+<ResponseField name="Stage" type="string" post={["optional"]}>
+  The evolution stage shown on the card.
+</ResponseField>
+
+<ResponseField name="Pokedex" type="number" post={["optional"]}>
+  The card's Pokedex number.
+</ResponseField>
+
+<ResponseField name="EvolvesFrom" type="string" post={["optional"]}>
+  The Pokemon this card evolves from.
+</ResponseField>
+
+<ResponseField name="EvolvesTo" type="string | string[]" post={["optional"]}>
+  The Pokemon this card can evolve into.
+</ResponseField>
+
+<ResponseField name="Types" type="string[]" post={["optional"]}>
+  The card's Pokemon type(s).
+</ResponseField>
+
+<ResponseField name="Attacks" type="object[]" post={["optional"]}>
+  Attack information shown on the card.
+</ResponseField>
+
+<ResponseField name="Abilities" type="object[]" post={["optional"]}>
+  Ability information shown on the card.
+</ResponseField>
+
+<ResponseField name="Weaknesses" type="object[]" post={["optional"]}>
+  Weakness information for battle interactions.
+</ResponseField>
+
+<ResponseField name="Rules" type="string[]" post={["optional"]}>
+  Special rules text for the card.
+</ResponseField>
+
+<ResponseField name="Retreat" type="string[]" post={["optional"]}>
+  Retreat cost shown on the card.
+</ResponseField>
+
+<ResponseField name="HP" type="string" post={["optional"]}>
+  Hit points value displayed on the card.
+</ResponseField>
+
+<ResponseField name="Level" type="string" post={["optional"]}>
+  Card level when the card includes one.
+</ResponseField>
+
+<ResponseExample>
+
+```jsonc Mega Charizard Y ex
+{
+  // additional item properties omitted
+  "urn": "urn:managem:pokemon:set/ascended-heroes/card/294",
+  "metadata": [
+    {
+      "name": "Category",
+      "value": "Pokémon",
+    },
+    {
+      "name": "Stage",
+      "value": "Stage 2",
+    },
+    {
+      "name": "Pokedex",
+      "value": 6,
+    },
+    {
+      "name": "EvolvesFrom",
+      "value": "Charmeleon",
+    },
+    {
+      "name": "Types",
+      "value": ["Fire"],
+    },
+    {
+      "name": "Attacks",
+      "detail": [
+        {
+          "cost": ["Fire", "Fire", "Colorless"],
+          "name": "Explosion Y",
+          "text": "Discard 3 Energy from this Pokémon, and this attack does 280 damage to 1 of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)",
+          "damage": "",
+          "convertedEnergyCost": 3,
+        },
+      ],
+    },
+    {
+      "name": "Weaknesses",
+      "detail": [
+        {
+          "type": "Water",
+          "value": "×2",
+        },
+      ],
+    },
+    {
+      "name": "Rules",
+      "detail": [
+        "Pokémon ex rule: When your Pokémon ex is Knocked Out, your opponent takes 2 Prize cards.",
+        "Mega Evolution ex Rule: When your Mega Evolution Pokémon ex is Knocked Out, your opponent takes 3 Prize cards.",
+      ],
+    },
+    {
+      "name": "Retreat",
+      "value": ["Colorless"],
+    },
+    {
+      "name": "HP",
+      "value": "360",
+    },
+  ],
+}
+```
+
+```jsonc Pikachu
+{
+  // additional item properties omitted
+  "urn": "urn:managem:pokemon:set/base/card/58",
+  "metadata": [
+    {
+      "name": "Category",
+      "value": "Pokémon",
+    },
+    {
+      "name": "Stage",
+      "value": "Basic",
+    },
+    {
+      "name": "Pokedex",
+      "value": 25,
+    },
+    {
+      "name": "EvolvesTo",
+      "value": ["Raichu"],
+    },
+    {
+      "name": "Types",
+      "value": ["Lightning"],
+    },
+    {
+      "name": "Attacks",
+      "detail": [
+        {
+          "cost": ["Colorless"],
+          "name": "Gnaw",
+          "text": "",
+          "damage": "10",
+          "convertedEnergyCost": 1,
+        },
+        {
+          "cost": ["Lightning", "Colorless"],
+          "name": "Thunder Jolt",
+          "text": "Flip a coin. If tails, Pikachu does 10 damage to itself.",
+          "damage": "30",
+          "convertedEnergyCost": 2,
+        },
+      ],
+    },
+    {
+      "name": "Weaknesses",
+      "detail": [
+        {
+          "type": "Fighting",
+          "value": "×2",
+        },
+      ],
+    },
+    {
+      "name": "Retreat",
+      "value": ["Colorless"],
+    },
+    {
+      "name": "HP",
+      "value": "40",
+    },
+    {
+      "name": "Level",
+      "value": "12",
+    },
+  ],
+}
+```
+
+```jsonc Mew
+{
+  // additional item properties omitted
+  "urn": "urn:managem:pokemon:set/paldean-fates/card/232",
+  "metadata": [
+    {
+      "name": "Category",
+      "value": "Pokémon",
+    },
+    {
+      "name": "Stage",
+      "value": "Basic",
+    },
+    {
+      "name": "Pokedex",
+      "value": 151,
+    },
+    {
+      "name": "Types",
+      "value": ["Psychic"],
+    },
+    {
+      "name": "Attacks",
+      "detail": [
+        {
+          "cost": ["Colorless", "Colorless", "Colorless"],
+          "name": "Genome Hacking",
+          "text": "Choose 1 of your opponent's Active Pokémon's attacks and use it as this attack.",
+          "damage": "",
+          "convertedEnergyCost": 3,
+        },
+      ],
+    },
+    {
+      "name": "Abilities",
+      "detail": [
+        {
+          "name": "Restart",
+          "text": "Once during your turn, you may draw cards until you have 3 cards in your hand.",
+          "type": "Ability",
+        },
+      ],
+    },
+    {
+      "name": "Weaknesses",
+      "detail": [
+        {
+          "type": "Darkness",
+          "value": "×2",
+        },
+      ],
+    },
+    {
+      "name": "Rules",
+      "detail": [
+        "Pokémon ex rule: When your Pokémon ex is Knocked Out, your opponent takes 2 Prize cards.",
+      ],
+    },
+    {
+      "name": "HP",
+      "value": "180",
+    },
+  ],
+}
+```
+
+```jsonc Nidoking
+{
+  // additional item properties omitted
+  "urn": "urn:managem:pokemon:set/rising-rivals/card/29",
+  "metadata": [
+    {
+      "name": "Category",
+      "value": "Pokémon",
+    },
+    {
+      "name": "Stage",
+      "value": "Stage 2",
+    },
+    {
+      "name": "Pokedex",
+      "value": 34,
+    },
+    {
+      "name": "EvolvesFrom",
+      "value": "Nidorino",
+    },
+    {
+      "name": "Types",
+      "value": ["Fighting"],
+    },
+    {
+      "name": "Attacks",
+      "detail": [
+        {
+          "cost": ["Colorless", "Colorless", "Colorless"],
+          "name": "Fling Away",
+          "text": "If your opponent has any Benched Pokémon, this attack's base damage is 30 instead of 60 and this attack does 30 damage to 1 of your opponent's Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)",
+          "damage": "60",
+          "convertedEnergyCost": 3,
+        },
+        {
+          "cost": ["Fighting", "Colorless", "Colorless", "Colorless"],
+          "name": "Giga Horn",
+          "text": "Flip 2 coins. If both of them are tails, this attack does nothing.",
+          "damage": "100",
+          "convertedEnergyCost": 4,
+        },
+      ],
+    },
+    {
+      "name": "Abilities",
+      "detail": [
+        {
+          "name": "Territoriality",
+          "text": "If your Active Pokémon is damaged by an opponent's attack (even if that Pokémon is Knocked Out), put 2 damage counters on the Attacking Pokémon. You can't put more than 2 damage counters in this way.",
+          "type": "Poké-Body",
+        },
+      ],
+    },
+    {
+      "name": "Weaknesses",
+      "detail": [
+        {
+          "type": "Water",
+          "value": "+30",
+        },
+      ],
+    },
+    {
+      "name": "Retreat",
+      "value": ["Colorless", "Colorless"],
+    },
+    {
+      "name": "HP",
+      "value": "130",
+    },
+    {
+      "name": "Level",
+      "value": "59",
+    },
+  ],
+}
+```
+
+</ResponseExample>

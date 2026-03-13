@@ -1,0 +1,151 @@
+---
+title: URNs
+description: What are Managem URNs?
+---
+
+A URN (**U**niform **R**esource **N**ame) is the stable identifier for a catalog resource on Managem.
+
+We chose to use URNs as our primary identity key across the platform because they provide a flexible, extensible, and human-readable way to represent resources in a hierarchical manner. URNs are used for items such as cards and products, as well as related resources like images and set symbols.
+
+If you know an item's URN, you can resolve it directly with lookup endpoints instead of relying on text search.
+
+## What a Managem URN looks like
+
+All URNs follow this canonical base shape:
+
+```txt
+urn:managem:<game>:<resource-path>
+```
+
+Example:
+
+```txt
+urn:managem:magic-the-gathering:set/bloomburrow/card/280
+```
+
+---
+
+## Canonical rules
+
+URNs are canonicalized with strict rules:
+
+1. Must start with `urn:managem:`
+2. Must be lowercase
+3. Must not end with `/`
+
+If a URN violates these rules, treat it as invalid.
+
+---
+
+## URN composition and path segments
+
+In a URN like `urn:managem:lorcana:set/rise-of-the-floodborn/card/1`:
+
+1. `urn` is the URI namespace identifier
+2. `managem` is the namespace owner
+3. `lorcana` is the game slug
+4. `set/rise-of-the-floodborn/card/1` is the resource path
+
+---
+
+## Supported URN shapes
+
+### Primary resources
+
+| Resource | Pattern                                                | Example                                                                   |
+| -------- | ------------------------------------------------------ | ------------------------------------------------------------------------- |
+| Series   | `urn:managem:<game>:series/<series-id>`                | `urn:managem:pokemon:series/scarlet-violet`                               |
+| Set      | `urn:managem:<game>:set/<set-id>`                      | `urn:managem:lorcana:set/rise-of-the-floodborn`                           |
+| Card     | `urn:managem:<game>:set/<set-id>/card/<card-id>`       | `urn:managem:star-wars-unlimited:set/jump-to-lightspeed/card/12`          |
+| Product  | `urn:managem:<game>:set/<set-id>/product/<product-id>` | `urn:managem:riftbound:set/origins/product/origins-booster-pack-fcbd791d` |
+
+### Derived image-like resources
+
+| Resource      | Pattern                          | Example                                                                                                  |
+| ------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Card image    | `<card-urn>/image/<image-id>`    | `urn:managem:pokemon:set/151/card/294/image/0`                                                           |
+| Product image | `<product-urn>/image/<image-id>` | `urn:managem:magic-the-gathering:set/bloomburrow/product/bloomburrow-play-booster-pack-2f7bd1b8/image/0` |
+| Set symbol    | `<set-urn>/symbol/<symbol-id>`   | `urn:managem:magic-the-gathering:set/bloomburrow/symbol/0`                                               |
+
+---
+
+## How cards and products are composed
+
+### Card URNs
+
+Card URNs are composed by appending a card ID under a set URN:
+
+```txt
+urn:managem:<game>:set/<set-id>/card/<card-id>
+```
+
+The parent must be a set URN.
+
+<Warning>
+  Card IDs come from game-specific source data and are not always numeric.
+</Warning>
+
+Examples:
+
+```txt
+urn:managem:pokemon:set/151/card/294
+urn:managem:magic-the-gathering:set/bloomburrow/card/100a
+urn:managem:lorcana:set/rise-of-the-floodborn/card/19-p2
+```
+
+### Product URNs
+
+Product URNs are composed under a set URN:
+
+```txt
+urn:managem:<game>:set/<set-id>/product/<product-id>
+```
+
+Current product ID generation uses a stabilised version of the product name along with its classification.
+
+Observed product IDs end with an 8-character lowercase hex suffix:
+
+```txt
+...-2f7bd1b8
+...-4c3d5e2f
+...-b4889387
+```
+
+---
+
+## Per-game behavior
+
+Game slug is the `<game>` segment in the URN.
+
+| Game                  | Card ID source/behavior                                     |
+| --------------------- | ----------------------------------------------------------- |
+| `pokemon`             | Card number; can be alphanumeric (`75a`, `h1`)              |
+| `magic-the-gathering` | Collectors number; non-numeric values common (`100a`, `1p`) |
+| `star-wars-unlimited` | Official card number; observed numeric in snapshot          |
+| `lorcana`             | `number`, optionally `-<promoGrouping>` (`19-p2`)           |
+| `riftbound`           | `collectorNumber`; observed numeric in snapshot             |
+
+### Examples
+
+```txt
+# Pokemon
+urn:managem:pokemon:set/151/card/294
+urn:managem:pokemon:set/151/product/151-booster-bundle-167f14b6
+
+# Magic: The Gathering
+urn:managem:magic-the-gathering:set/bloomburrow/card/280
+urn:managem:magic-the-gathering:set/bloomburrow/symbol/0
+
+# Star Wars Unlimited
+urn:managem:star-wars-unlimited:set/jump-to-lightspeed/card/12
+urn:managem:star-wars-unlimited:set/jump-to-lightspeed/card/12/image/1
+urn:managem:star-wars-unlimited:set/jump-to-lightspeed/card/12/image/2
+
+# Lorcana
+urn:managem:lorcana:set/rise-of-the-floodborn/card/1
+urn:managem:lorcana:set/rise-of-the-floodborn/product/disney-lorcana-rise-of-the-floodborn-booster-box-4c3d5e2f
+
+# Riftbound
+urn:managem:riftbound:set/origins/card/179
+urn:managem:riftbound:set/origins/product/origins-booster-pack-fcbd791d
+```

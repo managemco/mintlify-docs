@@ -1,0 +1,299 @@
+---
+title: "Magic: The Gathering"
+description: MTG specific metadata fields for cards in our catalog
+---
+
+Each card in our catalog stores metadata properties extracted from the card, specific to the game.
+
+This metadata is stored inside the item data returned from our APIs. You can read more about our item structure in **[Item Structure](/marketplace/data/types)**.
+
+---
+
+**For MTG cards, we store the following metadata fields:**
+
+<ResponseField name="Released" type="string (date)" post={["optional"]}>
+  The card's release date.
+</ResponseField>
+
+<ResponseField name="ManaCost" type="string" post={["optional"]}>
+  The mana symbol cost shown for casting the card.
+</ResponseField>
+
+<ResponseField name="CardType" type="string" post={["optional"]}>
+  The card's type classification.
+</ResponseField>
+
+<ResponseField name="TypeLine" type="string" post={["optional"]}>
+  The full type line, including supertypes and subtypes.
+</ResponseField>
+
+<ResponseField name="OracleText" type="string" post={["optional"]}>
+  The card's primary rules text.
+</ResponseField>
+
+<ResponseField name="Power" type="string" post={["optional"]}>
+  The card's power value when applicable.
+</ResponseField>
+
+<ResponseField name="Toughness" type="string" post={["optional"]}>
+  The card's toughness value when applicable.
+</ResponseField>
+
+<ResponseField name="Colors" type="string[]" post={["optional"]}>
+  The card's color information.
+</ResponseField>
+
+<ResponseField name="CMC" type="string" post={["optional"]}>
+  Converted mana cost / mana value as a display value.
+</ResponseField>
+
+<ResponseField name="ConvertedManaCost" type="number" post={["optional"]}>
+  Numeric converted mana cost / mana value.
+</ResponseField>
+
+<ResponseField name="ProducedMana" type="string[]" post={["optional"]}>
+  Mana colors this card can produce.
+</ResponseField>
+
+<ResponseField name="ColorIdentity" type="string[]" post={["optional"]}>
+  The card's color identity.
+</ResponseField>
+
+<ResponseField name="Form" type="string" post={["optional"]}>
+  The card form label, such as Physical or Digital.
+</ResponseField>
+
+<ResponseExample>
+```jsonc Doubling Season
+{
+  // additional item properties omitted
+  "urn": "urn:managem:magic-the-gathering:set/ravnica-city-of-guilds/card/158",
+  "metadata": [
+    {
+      "name": "Released",
+      "value": "2005-10-07"
+    },
+    {
+      "name": "ManaCost",
+      "value": "{4}{G}"
+    },
+    {
+      "name": "CardType",
+      "value": "Enchantment"
+    },
+    {
+      "name": "TypeLine",
+      "value": "Enchantment"
+    },
+    {
+      "name": "OracleText",
+      "value": "If an effect would create one or more tokens under your control, it creates twice that many of those tokens instead.\nIf an effect would put one or more counters on a permanent you control, it puts twice that many of those counters on that permanent instead."
+    },
+    {
+      "name": "Colors",
+      "detail": [
+        "G"
+      ]
+    },
+    {
+      "name": "CMC",
+      "detail": "5"
+    },
+    {
+      "name": "ManaCost",
+      "detail": "{4}{G}"
+    },
+    {
+      "name": "ConvertedManaCost",
+      "value": 5
+    },
+    {
+      "name": "ColorIdentity",
+      "detail": [
+        "G"
+      ]
+    },
+    {
+      "name": "Form",
+      "value": "Physical"
+    }
+  ]
+}
+```
+
+```jsonc Thassa's Oracle
+{
+  // additional item properties omitted
+  "urn": "urn:managem:magic-the-gathering:set/theros-beyond-death/card/73",
+  "metadata": [
+    {
+      "name": "Released",
+      "value": "2020-01-24",
+    },
+    {
+      "name": "ManaCost",
+      "value": "{U}{U}",
+    },
+    {
+      "name": "CardType",
+      "value": "Creature — Merfolk Wizard",
+    },
+    {
+      "name": "TypeLine",
+      "value": "Creature — Merfolk Wizard",
+    },
+    {
+      "name": "OracleText",
+      "value": "When this creature enters, look at the top X cards of your library, where X is your devotion to blue. Put up to one of them on top of your library and the rest on the bottom of your library in a random order. If X is greater than or equal to the number of cards in your library, you win the game. (Each {U} in the mana costs of permanents you control counts toward your devotion to blue.)",
+    },
+    {
+      "name": "Power",
+      "value": "1",
+    },
+    {
+      "name": "Toughness",
+      "value": "3",
+    },
+    {
+      "name": "Colors",
+      "detail": ["U"],
+    },
+    {
+      "name": "CMC",
+      "detail": "2",
+    },
+    {
+      "name": "ManaCost",
+      "detail": "{U}{U}",
+    },
+    {
+      "name": "ConvertedManaCost",
+      "value": 2,
+    },
+    {
+      "name": "ColorIdentity",
+      "detail": ["U"],
+    },
+    {
+      "name": "Form",
+      "value": "Physical",
+    },
+  ],
+}
+```
+
+```jsonc Tarmogoyf
+{
+  // additional item properties omitted
+  "urn": "urn:managem:magic-the-gathering:set/time-spiral-remastered/card/235",
+  "metadata": [
+    {
+      "name": "Released",
+      "value": "2021-03-19",
+    },
+    {
+      "name": "ManaCost",
+      "value": "{1}{G}",
+    },
+    {
+      "name": "CardType",
+      "value": "Creature — Lhurgoyf",
+    },
+    {
+      "name": "TypeLine",
+      "value": "Creature — Lhurgoyf",
+    },
+    {
+      "name": "OracleText",
+      "value": "Tarmogoyf's power is equal to the number of card types among cards in all graveyards and its toughness is equal to that number plus 1.",
+    },
+    {
+      "name": "Power",
+      "value": "*",
+    },
+    {
+      "name": "Toughness",
+      "value": "1+*",
+    },
+    {
+      "name": "Colors",
+      "detail": ["G"],
+    },
+    {
+      "name": "CMC",
+      "detail": "2",
+    },
+    {
+      "name": "ManaCost",
+      "detail": "{1}{G}",
+    },
+    {
+      "name": "ConvertedManaCost",
+      "value": 2,
+    },
+    {
+      "name": "ColorIdentity",
+      "detail": ["G"],
+    },
+    {
+      "name": "Form",
+      "value": "Physical",
+    },
+  ],
+}
+```
+
+```jsonc Black Lotus
+{
+  // additional item properties omitted
+  "urn": "urn:managem:magic-the-gathering:set/unlimited-edition/card/233",
+  "metadata": [
+    {
+      "name": "Released",
+      "value": "1993-12-01",
+    },
+    {
+      "name": "ManaCost",
+      "value": "{0}",
+    },
+    {
+      "name": "CardType",
+      "value": "Artifact",
+    },
+    {
+      "name": "TypeLine",
+      "value": "Artifact",
+    },
+    {
+      "name": "OracleText",
+      "value": "{T}, Sacrifice this artifact: Add three mana of any one color.",
+    },
+    {
+      "name": "Colors",
+      "detail": [],
+    },
+    {
+      "name": "CMC",
+      "detail": "0",
+    },
+    {
+      "name": "ManaCost",
+      "detail": "{0}",
+    },
+    {
+      "name": "ProducedMana",
+      "detail": ["B", "G", "R", "U", "W"],
+    },
+    {
+      "name": "ColorIdentity",
+      "detail": [],
+    },
+    {
+      "name": "Form",
+      "value": "Physical",
+    },
+  ],
+}
+```
+
+</ResponseExample>
