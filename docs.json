@@ -29,7 +29,8 @@
                 "pages": [
                   "POST /search",
                   "GET /search/lookup",
-                  "POST /search/lookup/bulk"
+                  "POST /search/lookup/bulk",
+                  "POST /search/vector"
                 ]
               },
               {
