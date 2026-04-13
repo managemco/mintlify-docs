@@ -1,0 +1,43 @@
+name: Check links
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  mint-broken-links:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Mintlify broken-links check
+        shell: bash
+        run: |
+          set -o pipefail
+          # `mint broken-links` cannot resolve endpoints generated from a remote
+          # OpenAPI spec (see docs.json `openapi` field). Those show up as
+          # /api-reference/<group>/<operation> paths; filter them out and fail
+          # only on genuinely broken relative links within this repo.
+          output="$(npx mint broken-links 2>&1 || true)"
+          echo "$output"
+          # Any bullet line that isn't an /api-reference/ path is a real breakage.
+          real=$(echo "$output" | grep -E '^\s*⎿\s+/' | grep -v '^\s*⎿\s\+/api-reference/' || true)
+          if [ -n "$real" ]; then
+            echo ""
+            echo "::error::Broken links detected (excluding OpenAPI-generated /api-reference/ paths):"
+            echo "$real"
+            exit 1
+          fi

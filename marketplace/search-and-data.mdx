@@ -3,6 +3,13 @@ title: "Search & Data"
 description: "Discovery and searching is easy on Managem with our Search & Data APIs"
 ---
 
+<Note>
+  **For developers.** This section documents the public HTTP APIs Managem
+  offers to third-party applications. If you're a seller looking to list and
+  manage your cards on Managem, head to the
+  [Sellers guide](/sellers/index) instead.
+</Note>
+
 ![Pokemon cards](/images/cards.png)
 
 The Search & Data retrieval APIs support discovering, retrieving and exploring items & listings across the Managem marketplace. They're the same API endpoints that enable the screenshot from our website above.
@@ -15,12 +22,12 @@ The listings endpoints enable full-text faceted search through all listings on t
 You can also use this group of endpoints to retrieve historical prices for an item.
 
 </Card>
-<Card title="Items" href="/marketplace/data/types">
+<Card title="Items" href="/marketplace/data/items">
 Items represent both single cards and sealed products on the Managem marketplace. Searching through items enables you to quickly retrieve availability information for items within a game, set and of a particular type.    
     </Card>
 <Card title="Hierarchy" href="/api-reference/search/full-hierarchy">
     The hierarchy endpoints allow you to build rich navigation menus based upon the available games, sets and types on Managem. Each response also provides the necessary facets to continue refining a user's search.
     </Card>
-<Card title="Retrieval/Lookup" href="/search-and-data/lookup">
+<Card title="Retrieval/Lookup" href="/api-reference/search/lookup-item">
     If you know the URN and/or slug of the item you want to retrieve, you can use this group of endpoints to lookup the data directly.
     </Card>

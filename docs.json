@@ -89,6 +89,13 @@
               "marketplace/integrations/authenticate-users",
               "marketplace/integrations/managing-listings"
             ]
+          },
+          {
+            "group": "Reference",
+            "icon": "book-open",
+            "pages": [
+              "glossary"
+            ]
           }
         ]
       },
@@ -103,8 +110,16 @@
             "pages": [
               "sellers/index",
               "sellers/getting-started",
+              "sellers/create-a-listing",
               "sellers/grading-your-cards",
               "sellers/packing-your-order"
+            ]
+          },
+          {
+            "group": "Reference",
+            "icon": "book-open",
+            "pages": [
+              "glossary"
             ]
           },
           {

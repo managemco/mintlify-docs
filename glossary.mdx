@@ -1,0 +1,84 @@
+---
+title: "Glossary"
+description: "Definitions of terms used across Managem documentation"
+---
+
+A quick reference for terms you'll see throughout the Managem docs. If something you've read isn't explained here, please let us know on [Discord](https://discord.gg/qaU4KSEQRd) or at [support@managem.co.uk](mailto:support@managem.co.uk).
+
+## Selling & marketplace terms
+
+<ResponseField name="KYC (Know Your Customer)" type="regulatory process">
+The identity and business checks that payment providers are required to carry out before they can pay money out to you. On Managem, KYC is handled by [Stripe Connect](https://stripe.com/connect) — you'll provide identity documents and bank details, and Stripe verifies them securely. See [Getting started](/sellers/getting-started) for the full onboarding flow.
+</ResponseField>
+
+<ResponseField name="Stripe Connect" type="payment platform">
+The Stripe product Managem uses to collect buyer payments and route payouts to sellers. Because Stripe handles money movement directly, sellers onboard through Stripe's hosted form rather than entering bank details into Managem.
+</ResponseField>
+
+<ResponseField name="SNAD (Significantly Not As Described)" type="dispute type">
+A buyer may open a **SNAD** case if the item they received materially differs from your listing's description, photos, selected grade, or any required listing information. Accurate grading, good photos and honest comments are the best way to avoid SNAD disputes. See [Grading your cards](/sellers/grading-your-cards).
+</ResponseField>
+
+<ResponseField name="Sleeve-playable" type="grading concept">
+A card that can be sleeved, shuffled and used in normal play without risk of tearing, splitting or further damage. Used as part of the condition grades (NM, EX, GD, LP, PL). A **PO** (Poor) card is _not_ sleeve-playable.
+</ResponseField>
+
+<ResponseField name="Easypost" type="third-party service">
+The delivery-integration service Managem uses to **validate tracking numbers** and normalise carrier data. When you mark an order as shipped, Managem sends your carrier and tracking number to Easypost to confirm the number is real and recognised. You don't need an Easypost account — it runs behind the scenes.
+</ResponseField>
+
+<ResponseField name="Dispatch time" type="seller obligation">
+The number of business days between receiving an order and handing the parcel to the carrier. Managem's default is **3 business days**, and no order may exceed 30 days. You can override the default per listing.
+</ResponseField>
+
+## Catalogue & data terms
+
+<ResponseField name="URN (Uniform Resource Name)" type="identifier">
+Managem's stable, canonical identifier for catalogue resources like cards, products, sets and images. A URN looks like `urn:managem:pokemon:set/surging-sparks/card/1`. URNs are the most precise way to identify an item when importing a CSV, calling the API, or mapping a third-party system. See [URNs](/marketplace/data/urn) for the full reference.
+</ResponseField>
+
+<ResponseField name="Slug" type="identifier">
+A short, URL-safe, human-readable identifier for a resource (for example `surging-sparks`). Slugs appear inside URNs and in URLs on the Managem website.
+</ResponseField>
+
+<ResponseField name="Item" type="catalogue concept">
+A single thing in the Managem catalogue that someone could list: a specific card printing **or** a specific sealed product. Items are distinct from _listings_ — one item (e.g. "Charizard, Base Set, 4/102") can have many listings by many different sellers.
+</ResponseField>
+
+<ResponseField name="Listing" type="catalogue concept">
+An individual seller's offer of an item. A listing records the item, the seller, condition, price, quantity and any comments.
+</ResponseField>
+
+<ResponseField name="Facet / faceted search" type="search concept">
+The filters alongside a search result (game, set, condition, price range, rarity, etc.). "Faceted search" means search endpoints that return both matching results **and** the available filters for further refinement.
+</ResponseField>
+
+## Developer & integration terms
+
+<ResponseField name="API (Application Programming Interface)" type="integration concept">
+A machine-readable interface that lets other software talk to Managem. The Managem public API is documented under the **Marketplace**, **Sellers** and **Buyers** tabs in the sidebar.
+</ResponseField>
+
+<ResponseField name="OpenAPI" type="specification">
+The open standard used to describe REST APIs. Managem's API is published as an OpenAPI document at [api.managem.co.uk/doc](https://api.managem.co.uk/doc); Mintlify uses this file to render the interactive API reference.
+</ResponseField>
+
+<ResponseField name="REST endpoint" type="integration concept">
+An address (URL + HTTP method) that an API call is sent to — for example `GET /search/lookup`. The left-hand sidebar lists every supported endpoint grouped by feature.
+</ResponseField>
+
+<ResponseField name="OAuth" type="authentication protocol">
+The standard Managem uses to let third-party applications act on behalf of a signed-in user. If you're building an integration, see [Authenticate users](/marketplace/integrations/authenticate-users).
+</ResponseField>
+
+<ResponseField name="Personal access token (PAT)" type="credential">
+A long-lived token a user can issue from their Managem account to let a script or tool call the API **as them**, without completing an OAuth flow. See [Personal access tokens](/users/personal-access-tokens).
+</ResponseField>
+
+<ResponseField name="Webhook" type="integration concept">
+An HTTP callback Managem sends to a URL you own whenever something happens (for example `LISTING_UPDATED` or `ORDER_CREATED`). Webhooks let your system stay in sync without polling. See [Webhooks](/sellers/webhooks).
+</ResponseField>
+
+<ResponseField name="Idempotent / idempotency" type="integration concept">
+A property of an operation where running it twice has the same effect as running it once. Idempotent integrations can safely retry on failure without creating duplicates.
+</ResponseField>

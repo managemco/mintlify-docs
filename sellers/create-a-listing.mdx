@@ -1,0 +1,140 @@
+---
+title: "Create a listing"
+description: "Turn a card or sealed product into a live listing on Managem"
+---
+
+Once your seller onboarding is complete, you're ready to put items up for sale. This guide walks through creating a **single listing** — perfect for one-off cards or small batches. If you've got hundreds or thousands of items, jump to [Imports](/sellers/imports) instead.
+
+<Info>
+  Before you create your first listing, make sure you've finished
+  [onboarding through Stripe Connect](/sellers/getting-started). You won't be
+  able to publish listings until your seller account is active.
+</Info>
+
+## The quick version
+
+<Steps>
+  <Step title="Find the item in the catalogue">
+    Search by card name, set, or paste in a [URN](/glossary). Managem's
+    catalogue covers Pokémon, Magic: The Gathering, Lorcana, Star Wars
+    Unlimited and Riftbound.
+  </Step>
+  <Step title="Pick the condition">
+    Select the grade that best matches the item. See
+    [Grading your cards](/sellers/grading-your-cards) for the full definitions
+    of each grade.
+  </Step>
+  <Step title="Set your price and quantity">
+    Enter your price in pounds and the number of copies you have available.
+  </Step>
+  <Step title="Add details and photos">
+    Fill in any relevant comments, private notes, and — for listings priced
+    £20+ or sealed items with a seal tear — upload clear photos.
+  </Step>
+  <Step title="Publish">
+    Review everything, and click **Publish**. Your listing is live immediately
+    and visible in search results.
+  </Step>
+</Steps>
+
+---
+
+## Finding the right item
+
+Managem stores every printing of every card (and every sealed product) as a distinct **item** in the catalogue. Your listing attaches to an item, so it's important to pick the correct one.
+
+<AccordionGroup>
+  <Accordion title="Search by name">
+    Start typing the card or product name in the listing form. The suggestions
+    dropdown shows matching items with their set and collector number so you
+    can confirm you're picking the right printing (for example, first-edition
+    vs. unlimited, or promo vs. base set).
+  </Accordion>
+  <Accordion title="Search by set and number">
+    If you know the exact set and collector number, filter by **game** and
+    **set** first, then scroll to the number. This is usually the fastest way
+    to find reprints.
+  </Accordion>
+  <Accordion title="Paste a URN or external ID">
+    If you already have a [URN](/glossary) (for example from an integration or
+    spreadsheet), paste it directly into the search box. You can also use a
+    **Cardmarket ID** or **TCGplayer ID** if you've mapped your inventory
+    from another marketplace.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  If you can't find your item in the catalogue, please reach out on
+  [Discord](https://discord.gg/qaU4KSEQRd) or at
+  [support@managem.co.uk](mailto:support@managem.co.uk) — don't list it under
+  a similar-looking item, as this can lead to
+  [SNAD](/glossary) disputes.
+</Warning>
+
+## Choosing the condition
+
+Pick from the seven supported grades:
+
+- **Mint (MT)** — factory-fresh to the naked eye.
+- **Near Mint (NM)** — looks new at arm's length.
+- **Excellent (EX)** — light to moderate play, still sleeve-playable.
+- **Good (GD)** — moderate play; a very light crease may be acceptable.
+- **Lightly Played (LP)** — significant play but still sleeve-playable.
+- **Played (PL)** — heavy wear, identifiable, sleeve-usable but poor.
+- **Poor (PO)** — not sleeve-playable; heavy structural damage.
+
+Full definitions, photos of each grade and special cases (foils, graded slabs, sealed products) live on the [Grading your cards](/sellers/grading-your-cards) page.
+
+<Tip>
+  Managem doesn't support partial grades (like NM- or EX+). If your card sits
+  between two grades, pick the lower grade and describe the nuance in the
+  **comments** field.
+</Tip>
+
+## Pricing and quantity
+
+- **Price** is in pounds (e.g. `3.50`). Listings are paid out in GBP.
+- **Quantity** is the number of _identical copies_ you have in the same condition. If you have two NM copies and one LP copy, create two separate listings.
+- **0% commission** — Managem takes no percentage of the sale. Stripe may charge a small payout fee depending on your region.
+
+<Tip>
+  Not sure what to charge? Managem shows recent sale prices and current active
+  listings on the item's detail page — use these as a benchmark.
+</Tip>
+
+## Photos and comments
+
+Photos aren't required for every listing, but are **mandatory** in two cases:
+
+- Any listing priced **£20 or more**.
+- **Sealed products with any seal tear** (regardless of price).
+
+Clear photos measurably reduce dispute rates, so we recommend adding them even for cheaper listings.
+
+Use the **comments** field to record anything a buyer should know before purchase: signatures, light creases, off-centre printing, language/edition nuances, or included extras.
+
+Use the **notes** field for anything you want to remember but buyers shouldn't see (your SKU, shelf location, etc.).
+
+## Variants
+
+Some cards and products ship in multiple flavours — foil vs. non-foil, different languages, reverse holos, alternate art, different packaging for sealed boxes. When you pick an item, you'll see a **Variants** selector if one applies. Pick the exact variant you're listing; selling the wrong variant is a common cause of [SNAD](/glossary) cases.
+
+## Publishing
+
+When you click **Publish**, the listing goes live immediately. Buyers can add it to their basket and checkout right away, so make sure:
+
+- The condition matches the item in front of you.
+- You actually have the quantity you've entered in stock.
+- You can [dispatch within 3 business days](/sellers/packing-your-order) (the default) or have adjusted your dispatch time.
+
+## After publishing
+
+- **Edit** — you can change price, quantity and comments at any time from your **Listings** dashboard.
+- **Hide** — toggle the visibility flag to remove a listing from search results without deleting it (useful if you're low on stock or on vacation).
+- **Sell** — when a buyer checks out, you'll get a notification and the order appears in your **Orders** dashboard. Head to [Packing your order](/sellers/packing-your-order) for what to do next.
+
+<Tip>
+  Selling a lot at once? Skip the single-listing form and jump straight to
+  **[Imports](/sellers/imports)**. You can upload a CSV to create or update
+  thousands of listings in one go.
+</Tip>
