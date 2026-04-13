@@ -5,9 +5,13 @@ description: 'Preview changes locally to update your docs'
 
 <Info>
   **Prerequisites**:
-  - Node.js version 19 or higher
-  - A docs repository with a `docs.json` file
+  - [Node.js](https://nodejs.org) version 24 or higher (matches the version pinned in this repo's `.nvmrc` and `package.json` `engines` field). Node.js is the runtime that powers the Mintlify CLI you'll install below.
+  - A docs repository with a `docs.json` file at its root. `docs.json` is the Mintlify configuration that defines the sidebar, navigation tabs and OpenAPI sources.
 </Info>
+
+<Tip>
+  If you're working in this repository, the recommended flow is `npm install && npm run dev` from the repo root. That command starts the same Mintlify CLI documented below, but on the project's local HTTPS hostname (`https://docs.managem.localhost:4562`) so links and cookies behave the same as production. The steps on this page describe the **upstream Mintlify CLI** workflow, which is useful if you want to preview docs outside this repo or on a different port.
+</Tip>
 
 Follow these steps to install and run Mintlify on your operating system.
 
@@ -48,10 +52,10 @@ Port 3000 is already in use. Trying 3001 instead.
 
 ## Mintlify versions
 
-Please note that each CLI release is associated with a specific version of Mintlify. If your local preview does not align with the production version, please update the CLI:
+Please note that each CLI release is associated with a specific version of Mintlify. If your local preview does not align with the production version, reinstall the latest CLI:
 
 ```bash
-npm mint update
+npm i -g mint@latest
 ```
 
 ## Validating links
@@ -64,11 +68,7 @@ mint broken-links
 
 ## Deployment
 
-If the deployment is successful, you should see the following:
-
-<Frame>
-  <img src="/images/checks-passed.png" alt="Screenshot of a deployment confirmation message that says All checks have passed." style={{ borderRadius: '0.5rem' }} />
-</Frame>
+Mintlify deploys automatically when changes land on `main`. You can confirm the deployment succeeded from your Mintlify dashboard — a successful run shows "All checks have passed" under the commit.
 
 ## Code formatting
 
@@ -81,7 +81,7 @@ We suggest using extensions on your IDE to recognize and format MDX. If you're a
 
     This may be due to an outdated version of node. Try the following:
     1. Remove the currently-installed version of the CLI: `npm remove -g mint`
-    2. Upgrade to Node v19 or higher.
+    2. Upgrade to Node v24 or higher.
     3. Reinstall the CLI: `npm i -g mint`
   </Accordion>
 

@@ -43,9 +43,13 @@ The card type represents a single collectible card on the marketplace. Each card
     </ResponseField>
 
     <ResponseField name="game" type="Game">
-      Trading card game this card belongs to.
-
-      More information about the [Game](/marketplace/data/types#param-game) type
+      Trading card game this card belongs to. See the per-game metadata
+      reference for supported games:
+      [Pokémon](/marketplace/data/pokemon),
+      [Magic: The Gathering](/marketplace/data/magic-the-gathering),
+      [Lorcana](/marketplace/data/lorcana),
+      [Star Wars Unlimited](/marketplace/data/star-wars-unlimited),
+      [Riftbound](/marketplace/data/riftbound).
     </ResponseField>
 
     <ResponseField name="title" type="string">
@@ -66,8 +70,6 @@ The card type represents a single collectible card on the marketplace. Each card
 
     <ResponseField name="images" type="Image[]">
       Image list for this card.
-
-      More information about the [Image](/marketplace/data/types#param-image) type
     </ResponseField>
 
     <ResponseField name="references" type="References">
@@ -128,9 +130,13 @@ The product type represents a sealed product on the marketplace, such as a boost
     </ResponseField>
 
     <ResponseField name="game" type="Game">
-      Trading card game this product belongs to.
-
-      More information about the [Game](/marketplace/data/types#param-game) type
+      Trading card game this product belongs to. See the per-game metadata
+      reference for supported games:
+      [Pokémon](/marketplace/data/pokemon),
+      [Magic: The Gathering](/marketplace/data/magic-the-gathering),
+      [Lorcana](/marketplace/data/lorcana),
+      [Star Wars Unlimited](/marketplace/data/star-wars-unlimited),
+      [Riftbound](/marketplace/data/riftbound).
     </ResponseField>
 
     <ResponseField name="name" type="string">
@@ -161,20 +167,14 @@ The product type represents a sealed product on the marketplace, such as a boost
 
     <ResponseField name="images" type="Image[]">
       Image list for this product.
-
-      More information about the [Image](/marketplace/data/types#param-image) type
     </ResponseField>
 
     <ResponseField name="references" type="References">
       External reference IDs for this product on major platforms.
-
-      More information about the [References](/marketplace/data/types#param-references) type
     </ResponseField>
 
     <ResponseField name="metadata" type="Metadata">
       Additional attributes for this product.
-
-      More information about the [Metadata](/marketplace/data/types#param-metadata) type
     </ResponseField>
 
   </Expandable>
